@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react';
 import { Container, Row, Col } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 import HeroSection from '../components/HeroSection';
-import { FaRupeeSign, FaThLarge, FaRuler, FaSort, FaHeart, FaShoppingCart, FaStar, FaStarHalfAlt } from 'react-icons/fa';
+import { FaRupeeSign, FaThLarge, FaRuler, FaSort, FaHeart, FaShoppingCart, FaStar, FaStarHalfAlt,  FaChevronDown, FaChevronUp } from 'react-icons/fa';
 import api from '../api';
 
 const Shop = () => {
@@ -58,6 +58,7 @@ const Shop = () => {
       return newFilters
     })
     setCurrentPage(1)
+     setShowMenu('') // ✅ IMPORTANT: menu close
   };
 
   const filterProducts = () => {
@@ -165,7 +166,7 @@ const Shop = () => {
             <div className="filter-dropdown price-filter">
               <button className="filter-btn" onClick={() => toggleMenu('price')}>
                 <span><FaRupeeSign /> Price</span>
-                <i className={`fas fa-chevron-${showMenu === 'price' ? 'up' : 'down'}`}></i>
+                {showMenu === 'price' ? <FaChevronUp /> : <FaChevronDown />}
               </button>
               {showMenu === 'price' && (
                 <div className="filter-menu show">
@@ -192,7 +193,7 @@ const Shop = () => {
             <div className="filter-dropdown">
               <button className="filter-btn" onClick={() => toggleMenu('category')}>
                 <span><FaThLarge /> Categories</span>
-                <i className={`fas fa-chevron-${showMenu === 'category' ? 'up' : 'down'}`}></i>
+                {showMenu === 'price' ? <FaChevronUp /> : <FaChevronDown />}
               </button>
               {showMenu === 'category' && (
                 <div className="filter-menu show">
@@ -215,7 +216,7 @@ const Shop = () => {
             <div className="filter-dropdown">
               <button className="filter-btn" onClick={() => toggleMenu('size')}>
                 <span><FaRuler /> Sizes</span>
-                <i className={`fas fa-chevron-${showMenu === 'size' ? 'up' : 'down'}`}></i>
+                {showMenu === 'price' ? <FaChevronUp /> : <FaChevronDown />}
               </button>
               {showMenu === 'size' && (
                 <div className="filter-menu show">
@@ -238,7 +239,7 @@ const Shop = () => {
             <div className="filter-dropdown">
               <button className="filter-btn" onClick={() => toggleMenu('sort')}>
                 <span><FaSort /> Sort Order</span>
-                <i className={`fas fa-chevron-${showMenu === 'sort' ? 'up' : 'down'}`}></i>
+                {showMenu === 'price' ? <FaChevronUp /> : <FaChevronDown />}
               </button>
               {showMenu === 'sort' && (
                 <div className="filter-menu show">

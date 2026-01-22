@@ -70,7 +70,6 @@
       "imageUrl": "img/img_banner_shop.png"
     }
   ],
-  
   "discoverProducts": [
     {
       "id": 1,
@@ -101,8 +100,7 @@
       "imageClass": "product-image4"
     }
   ],
-  
-   "aboutContent": [
+  "aboutContent": [
     {
       "id": 1,
       "experienceTitle": "15+ Years Of Experience In This Industry",
@@ -127,12 +125,19 @@
       "historyTitle": "Our History.",
       "historySubtitle": "Lorem ipsum is simply dummy text of the printing and typesetting industry.",
       "timeline": [
-        { "id": 1, "year": "2015", "text": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam" },
-        { "id": 2, "year": "2016", "text": "Expanded to 3 new locations and introduced our premium clothing line. Received 'Best New Retailer' award." }
+        {
+          "id": 1,
+          "year": "2015",
+          "text": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam"
+        },
+        {
+          "id": 2,
+          "year": "2016",
+          "text": "Expanded to 3 new locations and introduced our premium clothing line. Received 'Best New Retailer' award."
+        }
       ]
     }
   ],
-  
   "categories": [
     {
       "id": 1,
@@ -153,7 +158,6 @@
       "imageClass": "category3"
     }
   ],
-  
   "topRatingProducts": {
     "kids": [
       {
@@ -225,7 +229,6 @@
       }
     ]
   },
-  
   "testimonials": [
     {
       "id": 1,
@@ -246,7 +249,6 @@
       "avatarClass": "testimonial-avatar3"
     }
   ],
-  
   "blogs": {
     "homeBlogs": {
       "mainBlog": {
@@ -455,14 +457,17 @@
       }
     }
   },
-  
   "products": [
     {
       "id": 1,
       "title": "Elegant Evening Dress",
       "price": 2000,
       "category": "Female",
-      "sizes": ["S", "M", "L"],
+      "sizes": [
+        "S",
+        "M",
+        "L"
+      ],
       "rating": 4.9,
       "image": "img/western.png",
       "isNew": true
@@ -472,7 +477,11 @@
       "title": "Floral Summer Dress",
       "price": 2500,
       "category": "Female",
-      "sizes": ["M", "L", "XL"],
+      "sizes": [
+        "M",
+        "L",
+        "XL"
+      ],
       "rating": 4.8,
       "image": "img/img_dress.png",
       "isNew": false
@@ -482,7 +491,10 @@
       "title": "Casual Party Wear",
       "price": 2000,
       "category": "Female",
-      "sizes": ["S", "M"],
+      "sizes": [
+        "S",
+        "M"
+      ],
       "rating": 4.9,
       "image": "img/img_western.png",
       "isNew": true
@@ -492,7 +504,11 @@
       "title": "Designer Saree",
       "price": 3500,
       "category": "Female",
-      "sizes": ["M", "L", "XL"],
+      "sizes": [
+        "M",
+        "L",
+        "XL"
+      ],
       "rating": 4.9,
       "image": "img/saree.png",
       "isNew": false
@@ -502,7 +518,11 @@
       "title": "Traditional Lehenga",
       "price": 4500,
       "category": "Female",
-      "sizes": ["S", "M", "L"],
+      "sizes": [
+        "S",
+        "M",
+        "L"
+      ],
       "rating": 4.8,
       "image": "img/navratri.png",
       "isNew": true
@@ -512,7 +532,11 @@
       "title": "Modern Ethnic Wear",
       "price": 2800,
       "category": "Female",
-      "sizes": ["M", "L", "XL"],
+      "sizes": [
+        "M",
+        "L",
+        "XL"
+      ],
       "rating": 4.9,
       "image": "img/gown.png",
       "isNew": false
@@ -522,8 +546,11 @@
       "title": "Bridal Lehenga",
       "price": 5500,
       "category": "Female",
-      "sizes": ["S", "M"],
-      "rating": 5.0,
+      "sizes": [
+        "S",
+        "M"
+      ],
+      "rating": 5,
       "image": "img/fe1.png",
       "isNew": true
     },
@@ -532,7 +559,11 @@
       "title": "Office Formal Suit",
       "price": 3200,
       "category": "Male",
-      "sizes": ["M", "L", "XL"],
+      "sizes": [
+        "M",
+        "L",
+        "XL"
+      ],
       "rating": 4.7,
       "image": "img/img_ankit.png",
       "isNew": false
@@ -542,7 +573,11 @@
       "title": "Silk Saree",
       "price": 4200,
       "category": "Female",
-      "sizes": ["S", "M", "L"],
+      "sizes": [
+        "S",
+        "M",
+        "L"
+      ],
       "rating": 4.9,
       "image": "img/fe6.png",
       "isNew": true
@@ -552,7 +587,10 @@
       "title": "Kids Casual Dress",
       "price": 1500,
       "category": "Kids",
-      "sizes": ["S", "M"],
+      "sizes": [
+        "S",
+        "M"
+      ],
       "rating": 4.5,
       "image": "img/kids_dress.jpg",
       "isNew": true
@@ -562,7 +600,9 @@
       "title": "Gold Necklace Set",
       "price": 8000,
       "category": "Jewellery",
-      "sizes": ["One Size"],
+      "sizes": [
+        "One Size"
+      ],
       "rating": 4.9,
       "image": "img/jewellery1.jpg",
       "isNew": false
@@ -572,13 +612,16 @@
       "title": "Men's Formal Suit",
       "price": 3800,
       "category": "Male",
-      "sizes": ["M", "L", "XL"],
+      "sizes": [
+        "M",
+        "L",
+        "XL"
+      ],
       "rating": 4.6,
       "image": "img/me2.png",
       "isNew": true
     }
   ],
-  
   "team": [
     {
       "id": 1,
@@ -599,7 +642,6 @@
       "image": "img/img_ankit.png"
     }
   ],
-  
   "cartItems": [
     {
       "id": 1,
@@ -652,7 +694,6 @@
       "inStock": true
     }
   ],
-  
   "wishlistItems": [
     {
       "id": 1,
@@ -693,19 +734,8 @@
       "unitPrice": 4000,
       "quantity": 1,
       "inStock": false
-    },
-    {
-      "id": 5,
-      "name": "Dress Name",
-      "image": "https://images.unsplash.com/photo-1603252109303-2751441dd157?w=400",
-      "color": "Orange",
-      "size": "XS",
-      "unitPrice": 4000,
-      "quantity": 2,
-      "inStock": true
     }
   ],
-  
   "productDetails": [
     {
       "id": 1,
@@ -713,11 +743,27 @@
       "price": 2000,
       "rating": 4.9,
       "images": [
-        { "thumb": "/img/img_sm1.png", "large": "/img/img_lg1.png" },
-        { "thumb": "/img/img_sm2.png", "large": "/img/img_lg2.png" },
-        { "thumb": "/img/img_sm3.png", "large": "/img/img_lg3.png" }
+        {
+          "thumb": "/img/img_sm1.png",
+          "large": "/img/img_lg1.png"
+        },
+        {
+          "thumb": "/img/img_sm2.png",
+          "large": "/img/img_lg2.png"
+        },
+        {
+          "thumb": "/img/img_sm3.png",
+          "large": "/img/img_lg3.png"
+        }
       ],
-      "sizes": ["XS", "S", "M", "L", "XL", "XXL"],
+      "sizes": [
+        "XS",
+        "S",
+        "M",
+        "L",
+        "XL",
+        "XXL"
+      ],
       "description": "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged.",
       "reviews": [
         {
