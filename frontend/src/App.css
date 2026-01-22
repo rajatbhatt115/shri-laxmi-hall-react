@@ -16,6 +16,33 @@ body {
     overflow-x: hidden;
 }
 
+/* Account, Wishlist और Cart pages के footer links के लिए */
+footer a[href*="account"],
+footer a[href*="wishlist"], 
+footer a[href*="cart"],
+footer .footer-link-account,
+footer .footer-link-wishlist,
+footer .footer-link-cart,
+footer .nav-link[href="/account"],
+footer .nav-link[href="/wishlist"],
+footer .nav-link[href="/cart"] {
+  color: white !important;
+}
+
+/* Hover पर भी white ही रखें */
+footer a[href*="account"]:hover,
+footer a[href*="wishlist"]:hover,
+footer a[href*="cart"]:hover,
+footer .footer-link-account:hover,
+footer .footer-link-wishlist:hover,
+footer .footer-link-cart:hover,
+footer .nav-link[href="/account"]:hover,
+footer .nav-link[href="/wishlist"]:hover,
+footer .nav-link[href="/cart"]:hover {
+  color: white !important;
+  text-decoration: none !important;
+}
+
 /* =============== COMMON STYLES =============== */
 
 /* Top Bar */
