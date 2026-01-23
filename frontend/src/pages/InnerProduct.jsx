@@ -23,6 +23,8 @@ const InnerProduct = () => {
   const [reviews, setReviews] = useState([]);
   const [currentReviewSlide, setCurrentReviewSlide] = useState(0);
   const reviewTimerRef = useRef(null);
+  const [paymentStatus, setPaymentStatus] = useState(null); // 'success', 'failed', null
+  const [showStatusModal, setShowStatusModal] = useState(false);
 
   // Mock data structure matching the HTML
   const mockProduct = {
@@ -156,6 +158,85 @@ const InnerProduct = () => {
     };
 
     alert(`Added to cart:\nProduct: ${cartItem.product}\nSize: ${cartItem.size}\nQuantity: ${cartItem.quantity}\nTotal: ₹${cartItem.total}`);
+  };
+
+  const handleBuyNow = () => {
+    // Check if Razorpay is available
+    if (!window.Razorpay) {
+      alert("Razorpay SDK not loaded. Please refresh the page.");
+      return;
+    }
+
+    const totalPrice = product.price * quantity;
+
+    // Razorpay Payment Options
+    const options = {
+      key: "rzp_test_1DP5mmOlF5G5ag", // Use your actual Razorpay test key
+      amount: totalPrice * 100, // Convert to paise (₹2000 = 200000 paise)
+      currency: "INR",
+      name: "Fashion Store",
+      description: `Product: ${product.name} - Size: ${selectedSize}`,
+      image: "/img/logo.png", // Your store logo
+      handler: function (response) {
+        console.log("Payment Successful:", response);
+
+        // Show success modal
+        setPaymentStatus('success');
+        setShowStatusModal(true);
+
+        // In production, you should verify the payment signature with your backend
+        // verifyPaymentSignature(response);
+      },
+      prefill: {
+        name: "Test Customer", // You can get from user profile
+        email: "test@example.com",
+        contact: "9999999999"
+      },
+      notes: {
+        product: product.name,
+        size: selectedSize,
+        quantity: quantity,
+        totalAmount: totalPrice
+      },
+      theme: {
+        color: "#FF7E00" // Match your theme color
+      },
+      modal: {
+        ondismiss: function () {
+          // User closed/cancelled the payment modal
+          console.log("Payment modal closed by user");
+          setPaymentStatus('cancelled');
+          setShowStatusModal(true);
+        }
+      }
+    };
+
+    // Open Razorpay payment modal
+    try {
+      const rzp = new window.Razorpay(options);
+      rzp.open();
+
+      // Handle payment errors
+      rzp.on('payment.failed', function (response) {
+        console.error("Payment Failed:", response.error);
+        setPaymentStatus('failed');
+        setShowStatusModal(true);
+      });
+
+    } catch (error) {
+      console.error("Error initializing Razorpay:", error);
+      alert("Error initializing payment. Please try again.");
+    }
+  };
+
+  // Optional: Payment verification function
+  const verifyPaymentSignature = (response) => {
+    // In production, you should call your backend API to verify
+    // the payment signature to prevent tampering
+    // Example: api.verifyPayment({ ...response, orderId: 'your-order-id' });
+
+    // For demo purposes, we'll assume it's valid
+    return true;
   };
 
   const handleReviewSubmit = (e) => {
@@ -299,7 +380,6 @@ const InnerProduct = () => {
                 />
                 <button
                   onClick={handleWishlistToggle}
-                  className="wishlist-btn"
                   style={{
                     position: 'absolute',
                     top: '20px',
@@ -313,12 +393,15 @@ const InnerProduct = () => {
                     alignItems: 'center',
                     justifyContent: 'center',
                     cursor: 'pointer',
-                    transition: 'all 0.3s',
                     boxShadow: '0 4px 15px rgba(0,0,0,0.1)',
                     zIndex: 10
                   }}
                 >
-                  <i className={wishlisted ? 'fas fa-heart' : 'far fa-heart'} style={{ color: wishlisted ? 'white' : '#FF7E00', fontSize: '20px' }} />
+                  {wishlisted ? (
+                    <FaHeart size={20} color="white" />
+                  ) : (
+                    <FaHeart size={20} color="#FF7E00" />
+                  )}
                 </button>
               </div>
               <div className="thumbnail-container" style={{ display: 'flex', gap: '15px', marginTop: '20px' }}>
@@ -467,7 +550,7 @@ const InnerProduct = () => {
                       cursor: 'pointer',
                       transition: 'all 0.3s'
                     }}
-                    onClick={() => alert('Buy Now clicked')}
+                    onClick={handleBuyNow} // ✅ Razorpay payment लगा हुआ है
                   >
                     Buy Now
                   </button>
@@ -696,7 +779,7 @@ const InnerProduct = () => {
                 }}>
                   <Row className="d-flex justify-content-center align-items-center" id="reviewForm">
                     <Col lg={6} md={6} xs={12}>
-                      <div className="add-review-form" style={{marginTop: '0px'}}>
+                      <div className="add-review-form" style={{ marginTop: '0px' }}>
                         <h3 className="form-title" style={{
                           color: '#2D2D2D',
                           fontSize: '24px',
@@ -1049,6 +1132,192 @@ const InnerProduct = () => {
               >
                 Submit Review
               </button>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* Payment Status Modal */}
+      {showStatusModal && (
+        <div style={{
+          position: 'fixed',
+          top: 0,
+          left: 0,
+          width: '100%',
+          height: '100%',
+          background: 'rgba(0,0,0,0.7)',
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'center',
+          zIndex: 2000
+        }}>
+          <div style={{
+            background: 'white',
+            borderRadius: '20px',
+            width: '90%',
+            maxWidth: '400px',
+            padding: '30px',
+            textAlign: 'center',
+            boxShadow: '0 20px 60px rgba(0,0,0,0.3)'
+          }}>
+            {paymentStatus === 'success' ? (
+              <>
+                <div style={{
+                  width: '80px',
+                  height: '80px',
+                  background: '#4CAF50',
+                  borderRadius: '50%',
+                  margin: '0 auto 20px',
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  fontSize: '40px',
+                  color: 'white'
+                }}>
+                  ✓
+                </div>
+                <h3 style={{ color: '#2D2D2D', marginBottom: '10px' }}>Payment Successful!</h3>
+                <p style={{ color: '#666', marginBottom: '25px' }}>
+                  Your order has been placed successfully. Order ID: ORD{Date.now().toString().slice(-6)}
+                </p>
+              </>
+            ) : paymentStatus === 'failed' ? (
+              <>
+                <div style={{
+                  width: '80px',
+                  height: '80px',
+                  background: '#f44336',
+                  borderRadius: '50%',
+                  margin: '0 auto 20px',
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  fontSize: '40px',
+                  color: 'white'
+                }}>
+                  ✗
+                </div>
+                <h3 style={{ color: '#2D2D2D', marginBottom: '10px' }}>Payment Failed</h3>
+                <p style={{ color: '#666', marginBottom: '25px' }}>
+                  The payment could not be processed. Please try again.
+                </p>
+              </>
+            ) : (
+              <>
+                <div style={{
+                  width: '80px',
+                  height: '80px',
+                  background: '#FF7E00',
+                  borderRadius: '50%',
+                  margin: '0 auto 20px',
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  fontSize: '40px',
+                  color: 'white'
+                }}>
+                  !
+                </div>
+                <h3 style={{ color: '#2D2D2D', marginBottom: '10px' }}>Payment Cancelled</h3>
+                <p style={{ color: '#666', marginBottom: '25px' }}>
+                  Payment was cancelled. You can try again.
+                </p>
+              </>
+            )}
+
+            <div style={{ display: 'flex', gap: '15px', marginTop: '25px' }}>
+              {paymentStatus === 'success' ? (
+                <>
+                  <button
+                    onClick={() => {
+                      setShowStatusModal(false);
+                      setPaymentStatus(null);
+                      // मोडल बंद होगा, यूजर same product page पर रहेगा
+                    }}
+                    style={{
+                      flex: 1,
+                      padding: '12px 20px',
+                      background: '#FF7E00',
+                      color: 'white',
+                      border: 'none',
+                      borderRadius: '25px',
+                      fontWeight: '600',
+                      fontSize: '16px',
+                      cursor: 'pointer',
+                      transition: 'all 0.3s'
+                    }}
+                  >
+                    Continue Shopping
+                  </button>
+                  {/* <button
+              onClick={() => {
+                setShowStatusModal(false);
+                setPaymentStatus(null);
+               
+                alert(`Order Summary:\nOrder ID: ORD${Date.now().toString().slice(-6)}\nProduct: ${product.name}\nSize: ${selectedSize}\nQuantity: ${quantity}\nTotal: ₹${totalPrice}\n\nThank you for your purchase!`);
+              }}
+              style={{
+                flex: 1,
+                padding: '12px 20px',
+                background: 'white',
+                color: '#2D2D2D',
+                border: '2px solid #2D2D2D',
+                borderRadius: '25px',
+                fontWeight: '600',
+                fontSize: '16px',
+                cursor: 'pointer',
+                transition: 'all 0.3s'
+              }}
+            >
+              View Order
+            </button> */}
+                </>
+              ) : paymentStatus === 'failed' ? (
+                <button
+                  onClick={() => {
+                    setShowStatusModal(false);
+                    setPaymentStatus(null);
+                    // फिर से Buy Now बटन दिखाने के लिए
+                    // यूजर same page पर रहेगा
+                  }}
+                  style={{
+                    padding: '12px 30px',
+                    background: '#f44336',
+                    color: 'white',
+                    border: 'none',
+                    borderRadius: '25px',
+                    fontWeight: '600',
+                    fontSize: '16px',
+                    cursor: 'pointer',
+                    transition: 'all 0.3s',
+                    width: '100%'
+                  }}
+                >
+                  Try Again
+                </button>
+              ) : (
+                <button
+                  onClick={() => {
+                    setShowStatusModal(false);
+                    setPaymentStatus(null);
+                    // मोडल बंद होगा, यूजर same page पर रहेगा
+                  }}
+                  style={{
+                    padding: '12px 30px',
+                    background: '#FF7E00',
+                    color: 'white',
+                    border: 'none',
+                    borderRadius: '25px',
+                    fontWeight: '600',
+                    fontSize: '16px',
+                    cursor: 'pointer',
+                    transition: 'all 0.3s',
+                    width: '100%'
+                  }}
+                >
+                  OK
+                </button>
+              )}
             </div>
           </div>
         </div>
