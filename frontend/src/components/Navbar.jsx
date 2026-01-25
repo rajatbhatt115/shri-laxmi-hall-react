@@ -112,7 +112,7 @@ const NavigationBar = () => {
       </Navbar>
 
       {/* ================= STYLES ================= */}
-      <style jsx global>{`
+      <style>{`
         .top-bar {
           background: #FF7E00;
           color: #fff;
