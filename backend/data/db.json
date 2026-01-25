@@ -128,12 +128,47 @@
         {
           "id": 1,
           "year": "2015",
-          "text": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam"
+          "text": "Founded Shree Laxmi Mall with a single store in Mumbai, focusing on traditional Indian ethnic wear and establishing our commitment to quality craftsmanship."
         },
         {
           "id": 2,
           "year": "2016",
-          "text": "Expanded to 3 new locations and introduced our premium clothing line. Received 'Best New Retailer' award."
+          "text": "Expanded to 3 new locations across Maharashtra and introduced our premium clothing line. Received 'Best New Retailer' award at the National Fashion Awards."
+        },
+        {
+          "id": 3,
+          "year": "2017",
+          "text": "Launched our e-commerce platform, making our collections accessible nationwide. Partnered with 50+ local artisans to promote traditional Indian handicrafts."
+        },
+        {
+          "id": 4,
+          "year": "2018",
+          "text": "Opened flagship store in Delhi and introduced bridal collection. Awarded 'Most Trusted Ethnic Wear Brand' by Consumer Choice Awards."
+        },
+        {
+          "id": 5,
+          "year": "2019",
+          "text": "Expanded to 15 cities across India and launched men's formal wear division. Crossed milestone of serving 1 million satisfied customers."
+        },
+        {
+          "id": 6,
+          "year": "2020",
+          "text": "Successfully navigated pandemic challenges with enhanced online services. Launched sustainable fashion line using eco-friendly materials and processes."
+        },
+        {
+          "id": 7,
+          "year": "2021",
+          "text": "Introduced AI-powered virtual try-on feature on our website. Expanded internationally with first overseas store in Dubai."
+        },
+        {
+          "id": 8,
+          "year": "2022",
+          "text": "Celebrated opening of 50th store nationwide. Launched luxury couture line and received 'Excellence in Indian Fashion' award."
+        },
+        {
+          "id": 9,
+          "year": "2023",
+          "text": "Achieved milestone of 5 million customers. Launched mobile app with augmented reality features and expanded to 25+ countries globally."
         }
       ]
     }
@@ -739,46 +774,848 @@
   "productDetails": [
     {
       "id": 1,
-      "name": "Women's Summer Dress",
+      "name": "Elegant Evening Dress",
       "price": 2000,
       "rating": 4.9,
-      "images": [
-        {
-          "thumb": "/img/img_sm1.png",
-          "large": "/img/img_lg1.png"
-        },
-        {
-          "thumb": "/img/img_sm2.png",
-          "large": "/img/img_lg2.png"
-        },
-        {
-          "thumb": "/img/img_sm3.png",
-          "large": "/img/img_lg3.png"
-        }
-      ],
+      "description": "This stunning evening gown features a sophisticated A-line silhouette with intricate lace detailing, perfect for formal events, weddings, and cocktail parties. Made from premium satin fabric that drapes beautifully, the dress includes a deep V-neckline, adjustable spaghetti straps, and a matching waist belt to accentuate your figure. The floor-length design with subtle train creates a dramatic entrance while maintaining comfort throughout the evening.",
       "sizes": [
-        "XS",
         "S",
         "M",
-        "L",
-        "XL",
-        "XXL"
+        "L"
       ],
-      "description": "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged.",
+      "images": [
+        {
+          "large": "/img/img_lg1.png",
+          "thumb": "/img/img_sm1.png"
+        },
+        {
+          "large": "/img/img_lg2.png",
+          "thumb": "/img/img_sm2.png"
+        },
+        {
+          "large": "/img/img_lg3.png",
+          "thumb": "/img/img_sm3.png"
+        }
+      ],
+      "details": "Crafted from imported satin with reinforced stitching for durability. Features include hidden side zipper, breathable cotton lining, hand-embroidered lace details, built-in petticoat for shape retention. Dry-clean only. Available in midnight black, wine red, and navy blue. Perfect for sophisticated evening wear with timeless elegance.",
       "reviews": [
         {
           "id": 1,
-          "name": "Priya Sharma",
-          "rating": 4,
-          "text": "Excellent quality! The dress fits perfectly and the fabric is very comfortable. I've received so many compliments!",
-          "avatar": "https://images.unsplash.com/photo-1524504388940-b1c1722653e1?q=80&w=687&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+          "name": "Riya Sharma",
+          "rating": 5,
+          "text": "Absolutely loved the quality and fitting! The dress exceeded expectations with luxurious fabric and impeccable stitching. Perfect for weddings with countless compliments. Sizing was accurate and color matched website photos perfectly. Worth every penny!",
+          "avatar": "https://i.pravatar.cc/150?img=7"
         },
         {
           "id": 2,
-          "name": "Rahul Verma",
+          "name": "Anjali Verma",
           "rating": 5,
-          "text": "Best purchase ever! The stitching is excellent and the color looks exactly like in the picture. Very fast delivery too!",
-          "avatar": "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=150&auto=format&fit=crop&q=80"
+          "text": "Stunning premium dress with outstanding craftsmanship! Every detail from lacework to hemline is perfect. Hugs in all right places and flows beautifully. Excellent customer service for sizing queries. Highly recommended for special occasions!",
+          "avatar": "https://i.pravatar.cc/150?img=150"
+        },
+        {
+          "id": 3,
+          "name": "Pooja Singh",
+          "rating": 4,
+          "text": "Elegant dress with excellent fabric quality. Flattering silhouette and timely delivery. Minor issue with waist belt but easily fixed. Great value for formal events. Would purchase from this brand again!",
+          "avatar": "https://i.pravatar.cc/150?img=8"
+        },
+        {
+          "id": 4,
+          "name": "Neha Patel",
+          "rating": 5,
+          "text": "Perfect for parties! Felt like a princess all night. Fabric doesn't wrinkle easily and maintains shape. Gorgeous wine red color photographs beautifully. Accurate sizing chart and prompt delivery with care instructions.",
+          "avatar": "https://i.pravatar.cc/150?img=9"
+        },
+        {
+          "id": 5,
+          "name": "Kavita Joshi",
+          "rating": 5,
+          "text": "Exceptional finishing and comfort! Breathable fabric with no itchiness, perfect cut for easy movement. Remarkable attention to detail especially lace sleeves. Already recommended to three friends who also loved it!",
+          "avatar": "https://i.pravatar.cc/150?img=10"
+        },
+        {
+          "id": 6,
+          "name": "Simran Kaur",
+          "rating": 4,
+          "text": "Exactly like online images! Impressive quality for price. True to size with perfect color matching. Delivery took longer than estimated but worth the wait. Go-to option for formal events with confidence!",
+          "avatar": "https://i.pravatar.cc/150?img=11"
+        }
+      ]
+    },
+    {
+      "id": 2,
+      "name": "Floral Summer Dress",
+      "price": 2500,
+      "rating": 4.8,
+      "description": "Embrace summer with this vibrant floral dress made from 100% premium cotton voile. Lightweight and breathable with A-line silhouette, comfortable elasticated waistband, and adjustable shoulder straps. Perfect for beach vacations, garden parties, or casual weekends with cheerful all-over floral print and convenient side pockets.",
+      "sizes": [
+        "M",
+        "L",
+        "XL"
+      ],
+      "images": [
+        {
+          "large": "/img/img_lg1.png",
+          "thumb": "/img/img_sm1.png"
+        },
+        {
+          "large": "/img/img_lg2.png",
+          "thumb": "/img/img_sm2.png"
+        },
+        {
+          "large": "/img/img_lg3.png",
+          "thumb": "/img/img_sm3.png"
+        }
+      ],
+      "details": "High-quality cotton voile soft against skin with excellent ventilation. Features adjustable tie straps, elasticated smocked bodice, two functional side pockets, double-layered fabric for opacity. Machine-washable with fade-resistant colors. Available in tropical blooms, vintage roses, and wild meadow patterns.",
+      "reviews": [
+        {
+          "id": 1,
+          "name": "Sneha Roy",
+          "rating": 5,
+          "text": "Perfect for Indian summers! Lightweight yet not see-through. Fantastic pockets for essentials. Cheerful floral pattern. Stayed cool in humid Goa weather. Planning to buy another pattern!",
+          "avatar": "https://i.pravatar.cc/150?img=12"
+        },
+        {
+          "id": 2,
+          "name": "Aarti Mehta",
+          "rating": 4,
+          "text": "Nice summer dress with good quality fabric. Well-packaged with accurate colors. 100% cotton perfect for sensitive skin. Comfortable elastic waist. Perfect length at 5'4\". Needs more size options.",
+          "avatar": "https://i.pravatar.cc/150?img=13"
+        },
+        {
+          "id": 3,
+          "name": "Komal Jain",
+          "rating": 5,
+          "text": "Exceeded expectations! Thick enough fabric without slip, breathable for hot days. Neat stitching with pattern matching. Colors haven't faded after three washes. Perfect adjustable straps. Highly recommend!",
+          "avatar": "https://i.pravatar.cc/150?img=14"
+        },
+        {
+          "id": 4,
+          "name": "Pallavi Shah",
+          "rating": 5,
+          "text": "Perfect daily wear for work from home! Professional for video calls yet comfortable all day. Soft fabric that doesn't wrinkle. Love the pockets! Versatile for dressing up or down. Better quality than other brands.",
+          "avatar": "https://i.pravatar.cc/150?img=16"
+        },
+        {
+          "id": 5,
+          "name": "Nidhi Kapoor",
+          "rating": 4,
+          "text": "Premium fabric that wears well. True to size measurements. Impressed with durability after multiple washes - no shrinkage or color bleeding. Tasteful floral pattern. Straps need more adjustability.",
+          "avatar": "https://i.pravatar.cc/150?img=17"
+        },
+        {
+          "id": 6,
+          "name": "Tina Arora",
+          "rating": 5,
+          "text": "Stylish and comfortable! Beautiful fit with flattering cut. Fabric flows beautifully when walking. Go-to dress for weekend brunches. Excellent quality for price. Recommended to sister who also loves it!",
+          "avatar": "https://i.pravatar.cc/150?img=18"
+        }
+      ]
+    },
+    {
+      "id": 3,
+      "name": "Casual Party Wear",
+      "price": 2000,
+      "rating": 4.9,
+      "description": "Trendy casual party wear combining contemporary style with comfort. Features asymmetric hemline, subtle ruching details, and flattering wrap-style design. Made from premium crepe fabric that drapes elegantly. Perfect for modern evening outings, dinner dates, and social gatherings with minimalist chic design.",
+      "sizes": [
+        "S",
+        "M"
+      ],
+      "images": [
+        {
+          "large": "/img/img_lg1.png",
+          "thumb": "/img/img_sm1.png"
+        },
+        {
+          "large": "/img/img_lg2.png",
+          "thumb": "/img/img_sm2.png"
+        },
+        {
+          "large": "/img/img_lg3.png",
+          "thumb": "/img/img_sm3.png"
+        }
+      ],
+      "details": "Premium polyester crepe with excellent drape and minimal wrinkling. Wrap-style design with adjustable tie closure, V-neckline with facing, three-quarter sleeves with gathering, asymmetric calf-length hemline. Machine washable with shape retention. Available in charcoal grey, burgundy, and navy.",
+      "reviews": [
+        {
+          "id": 1,
+          "name": "Alisha Khan",
+          "rating": 5,
+          "text": "Fits like a dream! Received many compliments at birthday party. Wrap design is flattering with luxurious fabric. Versatile for multiple events with accessory changes. Exceptional quality for price. Prompt delivery as described.",
+          "avatar": "https://i.pravatar.cc/150?img=19"
+        },
+        {
+          "id": 2,
+          "name": "Ritu Malhotra",
+          "rating": 5,
+          "text": "Elegant and comfortable party outfit! Beautiful drape with modern asymmetric cut. Perfect sleeve length for cooler evenings. Photographs beautifully with rich burgundy color. On-time delivery with excellent packaging.",
+          "avatar": "https://i.pravatar.cc/150?img=20"
+        },
+        {
+          "id": 3,
+          "name": "Megha Arora",
+          "rating": 4,
+          "text": "Well-made with neat stitching. Can be dressed up or down for occasions. Adjustable wrap design for perfect fit. Needs more color options. Doesn't wrinkle easily - perfect for travel. Good value overall!",
+          "avatar": "https://i.pravatar.cc/150?img=21"
+        },
+        {
+          "id": 4,
+          "name": "Kriti Saxena",
+          "rating": 5,
+          "text": "Perfect for pear-shaped body! Wrap design cinches waist, A-line skirt balances proportions. Comfortable substantial fabric. Confident all evening at wedding reception. Excellent customer service for sizing questions.",
+          "avatar": "https://i.pravatar.cc/150?img=22"
+        },
+        {
+          "id": 5,
+          "name": "Naina Gupta",
+          "rating": 5,
+          "text": "Worth the price and more! Favorite for multiple occasions. Thick fabric needs no lining, reinforced stitching at stress points. Still looks new after three washes. Timeless design for years. Fast delivery with care instructions.",
+          "avatar": "https://i.pravatar.cc/150?img=23"
+        },
+        {
+          "id": 6,
+          "name": "Shruti Mishra",
+          "rating": 4,
+          "text": "Looks more expensive than it is! Nice weight fabric doesn't feel cheap. Flattering cut with interesting asymmetric hem. Comfortable for all-day wear at long events. Tie closure could be longer. Great frequent-wear dress!",
+          "avatar": "https://i.pravatar.cc/150?img=24"
+        }
+      ]
+    },
+    {
+      "id": 4,
+      "name": "Designer Saree",
+      "price": 3500,
+      "rating": 4.9,
+      "description": "Exquisite designer saree featuring rich fabric with elegant embroidery, perfect for weddings and festive celebrations. The intricate zari work and sequin detailing create a luxurious look, while the comfortable drape ensures ease of movement throughout long ceremonies and events.",
+      "sizes": [
+        "M",
+        "L",
+        "XL"
+      ],
+      "images": [
+        {
+          "large": "/img/img_lg1.png",
+          "thumb": "/img/img_sm1.png"
+        },
+        {
+          "large": "/img/img_lg2.png",
+          "thumb": "/img/img_sm2.png"
+        },
+        {
+          "large": "/img/img_lg3.png",
+          "thumb": "/img/img_sm3.png"
+        }
+      ],
+      "details": "Premium georgette fabric with intricate embroidery and zari work. Features pre-stitched pleats for easy draping, matching blouse piece with elegant back design, tassel detailing on pallu. Hand-wash recommended. Available in traditional colors with gold/silver work.",
+      "reviews": [
+        {
+          "id": 1,
+          "name": "Sunita Rao",
+          "rating": 5,
+          "text": "Beautiful embroidery with intricate details! Perfect for daughter's wedding. Received countless compliments. Quality matches high-end boutiques. Pre-stitched pleats made draping easy. Worth every rupee!",
+          "avatar": "https://i.pravatar.cc/150?img=25"
+        },
+        {
+          "id": 2,
+          "name": "Meenal Gupta",
+          "rating": 5,
+          "text": "Looks royal and luxurious! Wore it for Diwali party and felt like a queen. Zari work is exquisite and fabric drapes beautifully. Matching blouse fits perfectly. Excellent packaging with protective cover.",
+          "avatar": "https://i.pravatar.cc/150?img=26"
+        },
+        {
+          "id": 3,
+          "name": "Rekha Nair",
+          "rating": 4,
+          "text": "Good fabric quality with elegant design. Comfortable to wear all day during wedding functions. Embroidery is well-done without loose threads. Would prefer more color options. Overall beautiful saree.",
+          "avatar": "https://i.pravatar.cc/150?img=27"
+        },
+        {
+          "id": 4,
+          "name": "Anu Iyer",
+          "rating": 5,
+          "text": "Perfect for weddings and special occasions! Draped easily and stayed in place all evening. The shine and sparkle were just right - not too overwhelming. Blouse stitching was perfect. Highly recommended!",
+          "avatar": "https://i.pravatar.cc/150?img=28"
+        },
+        {
+          "id": 5,
+          "name": "Kiran Joshi",
+          "rating": 5,
+          "text": "Loved the traditional design with modern touch! The color combination is stunning and the workmanship is excellent. Wore it for my anniversary and received so many compliments. Perfect gift option too!",
+          "avatar": "https://i.pravatar.cc/150?img=29"
+        },
+        {
+          "id": 6,
+          "name": "Shobha Kulkarni",
+          "rating": 4,
+          "text": "Elegant look for festive occasions. Good quality fabric that doesn't crease easily. The border design is particularly beautiful. Delivery was prompt. Would love to see more contemporary designs.",
+          "avatar": "https://i.pravatar.cc/150?img=30"
+        }
+      ]
+    },
+    {
+      "id": 5,
+      "name": "Traditional Lehenga",
+      "price": 4500,
+      "rating": 4.8,
+      "description": "Magnificent traditional lehenga featuring beautiful craftsmanship with vibrant colors and detailed finishing. Perfect for festivals, weddings, and grand celebrations. The heavy embroidery and intricate work make it a standout piece for special occasions.",
+      "sizes": [
+        "S",
+        "M",
+        "L"
+      ],
+      "images": [
+        {
+          "large": "/img/img_lg1.png",
+          "thumb": "/img/img_sm1.png"
+        },
+        {
+          "large": "/img/img_lg2.png",
+          "thumb": "/img/img_sm2.png"
+        },
+        {
+          "large": "/img/img_lg3.png",
+          "thumb": "/img/img_sm3.png"
+        }
+      ],
+      "details": "Heavy embroidered lehenga with silk fabric, intricate zardozi work, matching choli and dupatta. Features stone work, sequins, and thread embroidery. Semi-stitched for custom fitting. Dry clean recommended. Available in festive colors with elaborate designs.",
+      "reviews": [
+        {
+          "id": 1,
+          "name": "Payal Mehra",
+          "rating": 5,
+          "text": "Absolutely gorgeous lehenga! Wore it for my brother's wedding and felt like a princess. The embroidery is exquisite and the colors are vibrant. Perfect fit after minor alterations. Worth the investment!",
+          "avatar": "https://i.pravatar.cc/150?img=31"
+        },
+        {
+          "id": 2,
+          "name": "Neetu Singh",
+          "rating": 4,
+          "text": "Very festive look with beautiful detailing. The fabric quality is good and the workmanship is fine. Heavy enough to feel luxurious but comfortable to wear. Dupatta could be longer. Overall satisfied.",
+          "avatar": "https://i.pravatar.cc/150?img=32"
+        },
+        {
+          "id": 3,
+          "name": "Rashmi Jain",
+          "rating": 5,
+          "text": "Loved the vibrant colors and intricate work! The lehenga looks even better in person than in photos. The stitching is neat and the embroidery is well-done. Perfect for wedding season. Highly recommended!",
+          "avatar": "https://i.pravatar.cc/150?img=33"
+        },
+        {
+          "id": 4,
+          "name": "Sonal Gupta",
+          "rating": 5,
+          "text": "Perfect fitting after tailoring. The lehenga is beautifully crafted with attention to detail. The colors are true to pictures and the fabric is luxurious. Received many compliments at the function. Excellent purchase!",
+          "avatar": "https://i.pravatar.cc/150?img=34"
+        },
+        {
+          "id": 5,
+          "name": "Isha Malhotra",
+          "rating": 4,
+          "text": "Nice material with good embroidery. The lehenga is heavy and looks expensive. The color combination is beautiful. Semi-stitched option allowed perfect customization. Could include more stones. Good value.",
+          "avatar": "https://i.pravatar.cc/150?img=35"
+        },
+        {
+          "id": 6,
+          "name": "Ayesha Khan",
+          "rating": 5,
+          "text": "Great quality lehenga for the price! The work is intricate and the fabric feels premium. Wore it for Eid celebrations and received so many compliments. Packaging was secure and delivery was on time. Will buy again!",
+          "avatar": "https://i.pravatar.cc/150?img=36"
+        }
+      ]
+    },
+    {
+      "id": 6,
+      "name": "Modern Ethnic Wear",
+      "price": 2800,
+      "rating": 4.9,
+      "description": "Contemporary ethnic outfit blending traditional charm with modern style. Features comfortable fit with premium stitching and elegant ethnic patterns. Perfect for festivals, parties, and casual gatherings where you want to showcase cultural heritage with a modern twist.",
+      "sizes": [
+        "M",
+        "L",
+        "XL"
+      ],
+      "images": [
+        {
+          "large": "/img/img_lg1.png",
+          "thumb": "/img/img_sm1.png"
+        },
+        {
+          "large": "/img/img_lg2.png",
+          "thumb": "/img/img_sm2.png"
+        },
+        {
+          "large": "/img/img_lg3.png",
+          "thumb": "/img/img_sm3.png"
+        }
+      ],
+      "details": "Premium cotton-silk blend with traditional prints and modern cuts. Includes kurta with contemporary neckline, matching palazzo pants, and dupatta. Features digital printing, comfortable fit, and easy maintenance. Machine washable. Available in various ethnic patterns.",
+      "reviews": [
+        {
+          "id": 1,
+          "name": "Nikita Sharma",
+          "rating": 5,
+          "text": "Very stylish fusion wear! Perfect for college festivals and casual parties. The fabric is comfortable and the print is beautiful. Got many compliments from friends. Fits true to size. Great purchase!",
+          "avatar": "https://i.pravatar.cc/150?img=37"
+        },
+        {
+          "id": 2,
+          "name": "Priya Agarwal",
+          "rating": 5,
+          "text": "Loved the fusion look! Modern yet ethnic. Perfect for office festivals and family functions. The palazzo pants are very comfortable. The quality is excellent for the price. Will definitely buy more colors.",
+          "avatar": "https://i.pravatar.cc/150?img=38"
+        },
+        {
+          "id": 3,
+          "name": "Ruchi Bansal",
+          "rating": 4,
+          "text": "Nice fabric with beautiful print. The outfit is comfortable for all-day wear. The cut is modern and flattering. Dupatta could be of better quality. Overall good value for money and stylish design.",
+          "avatar": "https://i.pravatar.cc/150?img=39"
+        },
+        {
+          "id": 4,
+          "name": "Kajal Jain",
+          "rating": 5,
+          "text": "Comfortable all day wear with ethnic touch! Wore it for Karva Chauth and felt both traditional and comfortable. The fabric is breathable and the fit is perfect. The colors are vibrant and don't fade easily.",
+          "avatar": "https://i.pravatar.cc/150?img=40"
+        },
+        {
+          "id": 5,
+          "name": "Shalini Verma",
+          "rating": 5,
+          "text": "Worth buying for multiple occasions! The outfit is versatile - can be dressed up or down. The quality is much better than expected. The print is unique and eye-catching. Fast delivery and good packaging.",
+          "avatar": "https://i.pravatar.cc/150?img=41"
+        },
+        {
+          "id": 6,
+          "name": "Priti Saxena",
+          "rating": 4,
+          "text": "Good quality fusion wear. The fabric is soft and comfortable. The design is trendy yet traditional. Perfect for young women who want ethnic wear with modern touch. Would love more design options.",
+          "avatar": "https://i.pravatar.cc/150?img=42"
+        }
+      ]
+    },
+    {
+      "id": 7,
+      "name": "Bridal Lehenga",
+      "price": 5500,
+      "rating": 5,
+      "description": "Exclusive bridal lehenga featuring luxury fabric with heavy embroidery and rich detailing, specially crafted for wedding ceremonies. This magnificent piece combines traditional craftsmanship with contemporary designs to make the bride feel like royalty on her special day.",
+      "sizes": [
+        "S",
+        "M"
+      ],
+      "images": [
+        {
+          "large": "/img/img_lg1.png",
+          "thumb": "/img/img_sm1.png"
+        },
+        {
+          "large": "/img/img_lg2.png",
+          "thumb": "/img/img_sm2.png"
+        },
+        {
+          "large": "/img/img_lg3.png",
+          "thumb": "/img/img_sm3.png"
+        }
+      ],
+      "details": "Heavy bridal lehenga with silk base, intricate zardozi and sequin work, matching heavily embroidered choli and dupatta. Features stone detailing, pearl work, and traditional motifs. Made-to-measure option available. Professional dry cleaning required.",
+      "reviews": [
+        {
+          "id": 1,
+          "name": "Bride Ananya",
+          "rating": 5,
+          "text": "Dream bridal outfit for my wedding! The lehenga was absolutely stunning and made me feel like a princess. The embroidery was exquisite and the fit was perfect. Worth every penny for my special day!",
+          "avatar": "https://i.pravatar.cc/150?img=43"
+        },
+        {
+          "id": 2,
+          "name": "Poonam Gupta",
+          "rating": 5,
+          "text": "Absolutely royal lehenga for my daughter's wedding! The quality exceeded expectations. The workmanship is comparable to designer boutiques at half the price. The colors were vibrant and the fit was perfect.",
+          "avatar": "https://i.pravatar.cc/150?img=44"
+        },
+        {
+          "id": 3,
+          "name": "Ritika Jain",
+          "rating": 5,
+          "text": "Worth every penny for my sister's wedding! The lehenga looks even more beautiful in person. The heavy work is well-distributed and comfortable to wear. Received so many compliments. Excellent quality!",
+          "avatar": "https://i.pravatar.cc/150?img=45"
+        },
+        {
+          "id": 4,
+          "name": "Sakshi Mehta",
+          "rating": 5,
+          "text": "Beautiful embroidery with perfect detailing! The lehenga was the highlight of my wedding. The colors photographed beautifully. The stitching was strong despite heavy work. Highly recommended for brides!",
+          "avatar": "https://i.pravatar.cc/150?img=46"
+        },
+        {
+          "id": 5,
+          "name": "Neha Kapoor",
+          "rating": 5,
+          "text": "Perfect bridal wear for my destination wedding! The lehenga was comfortable yet looked magnificent. The work is intricate and the fabric is luxurious. Made my wedding day even more special. Thank you!",
+          "avatar": "https://i.pravatar.cc/150?img=47"
+        },
+        {
+          "id": 6,
+          "name": "Shweta Arora",
+          "rating": 5,
+          "text": "Highly recommended for brides on a budget! This lehenga looks like it cost twice as much. The quality is exceptional and the design is timeless. Perfect fit with minor alterations. Excellent service!",
+          "avatar": "https://i.pravatar.cc/150?img=48"
+        }
+      ]
+    },
+    {
+      "id": 8,
+      "name": "Office Formal Suit",
+      "price": 3200,
+      "rating": 4.7,
+      "description": "Professional office formal suit designed for corporate wear with sharp tailored fit and premium material. Perfect for business meetings, conferences, and daily office wear. The classic design ensures you look polished and professional throughout long working hours.",
+      "sizes": [
+        "M",
+        "L",
+        "XL"
+      ],
+      "images": [
+        {
+          "large": "/img/img_lg1.png",
+          "thumb": "/img/img_sm1.png"
+        },
+        {
+          "large": "/img/img_lg2.png",
+          "thumb": "/img/img_sm2.png"
+        },
+        {
+          "large": "/img/img_lg3.png",
+          "thumb": "/img/img_sm3.png"
+        }
+      ],
+      "details": "Premium polyester-wool blend suit with tailored fit, notch lapel, two-button closure, and functional pockets. Includes matching trousers with adjustable waist. Machine washable with minimal ironing. Available in classic office colors: black, navy, charcoal.",
+      "reviews": [
+        {
+          "id": 1,
+          "name": "Rahul Mehta",
+          "rating": 5,
+          "text": "Perfect office suit with excellent fit! Wears comfortably throughout long meetings. The fabric is good quality and doesn't wrinkle easily. Looks professional and polished. Great value for daily office wear.",
+          "avatar": "https://i.pravatar.cc/150?img=49"
+        },
+        {
+          "id": 2,
+          "name": "Aman Verma",
+          "rating": 4,
+          "text": "Very professional look for corporate environment. The fit is good and the fabric is durable. Has held up well after multiple washes. Could use more pocket options. Overall good quality for the price.",
+          "avatar": "https://i.pravatar.cc/150?img=50"
+        },
+        {
+          "id": 3,
+          "name": "Sandeep Roy",
+          "rating": 5,
+          "text": "Comfortable fit for all-day office wear. The suit looks sharp and professional. The fabric breathes well in air-conditioned offices. The trousers fit perfectly without alterations. Highly recommended!",
+          "avatar": "https://i.pravatar.cc/150?img=51"
+        },
+        {
+          "id": 4,
+          "name": "Kunal Shah",
+          "rating": 5,
+          "text": "Good quality fabric that maintains shape. Perfect for client meetings and presentations. The suit looks expensive and well-tailored. Has become my go-to office outfit. Fast delivery and good packaging.",
+          "avatar": "https://i.pravatar.cc/150?img=52"
+        },
+        {
+          "id": 5,
+          "name": "Rohit Jain",
+          "rating": 4,
+          "text": "Nice stitching with clean finish. The suit fits well and looks professional. The fabric is easy to maintain with minimal ironing. Could offer more color variations. Good purchase for office wardrobe.",
+          "avatar": "https://i.pravatar.cc/150?img=53"
+        },
+        {
+          "id": 6,
+          "name": "Vikas Malhotra",
+          "rating": 5,
+          "text": "Worth the price for daily office wear! The suit has held up well over months of regular use. The fit is consistent and the fabric quality is good. Perfect for corporate professionals on budget.",
+          "avatar": "https://i.pravatar.cc/150?img=54"
+        }
+      ]
+    },
+    {
+      "id": 9,
+      "name": "Silk Saree",
+      "price": 4200,
+      "rating": 4.9,
+      "description": "Elegant silk saree showcasing traditional craftsmanship with rich patterns and smooth texture. Perfect for festivals, weddings, and special occasions where you want to make a statement with classic elegance and luxurious feel.",
+      "sizes": [
+        "S",
+        "M",
+        "L"
+      ],
+      "images": [
+        {
+          "large": "/img/img_lg1.png",
+          "thumb": "/img/img_sm1.png"
+        },
+        {
+          "large": "/img/img_lg2.png",
+          "thumb": "/img/img_sm2.png"
+        },
+        {
+          "large": "/img/img_lg3.png",
+          "thumb": "/img/img_sm3.png"
+        }
+      ],
+      "details": "Pure silk saree with traditional borders, intricate pallu design, and matching blouse piece. Features zari work, traditional motifs, and rich colors. Dry clean recommended. Available in various traditional patterns and colors.",
+      "reviews": [
+        {
+          "id": 1,
+          "name": "Lakshmi Iyer",
+          "rating": 5,
+          "text": "Pure silk feel with luxurious drape! Perfect for my daughter's thread ceremony. The saree looks expensive and the work is exquisite. The colors are vibrant and the border is beautiful. Highly recommended!",
+          "avatar": "https://i.pravatar.cc/150?img=55"
+        },
+        {
+          "id": 2,
+          "name": "Uma Rao",
+          "rating": 5,
+          "text": "Beautiful patterns with traditional elegance! Wore it for Puja celebrations and received many compliments. The silk quality is excellent and the zari work is fine. The saree drapes beautifully. Excellent purchase!",
+          "avatar": "https://i.pravatar.cc/150?img=56"
+        },
+        {
+          "id": 3,
+          "name": "Saraswati Nair",
+          "rating": 4,
+          "text": "Good quality silk saree with nice work. The colors are true to pictures and the fabric feels luxurious. The border design is traditional and elegant. Would prefer faster delivery options. Overall satisfied.",
+          "avatar": "https://i.pravatar.cc/150?img=57"
+        },
+        {
+          "id": 4,
+          "name": "Kanchan Patel",
+          "rating": 5,
+          "text": "Looks elegant and feels luxurious! Perfect for wedding functions. The saree has good weight and drapes perfectly. The blouse piece matches beautifully. The packaging was premium with protective cover.",
+          "avatar": "https://i.pravatar.cc/150?img=58"
+        },
+        {
+          "id": 5,
+          "name": "Meena Joshi",
+          "rating": 5,
+          "text": "Loved it for my anniversary party! The saree is stunning and the quality is excellent. The work is intricate without being too heavy. Comfortable to wear all evening. Will buy from this brand again!",
+          "avatar": "https://i.pravatar.cc/150?img=59"
+        },
+        {
+          "id": 6,
+          "name": "Reema Shah",
+          "rating": 4,
+          "text": "Worth buying for special occasions! The silk quality is good and the colors are rich. The saree looks more expensive than it is. Would love more contemporary designs in silk. Good value overall.",
+          "avatar": "https://i.pravatar.cc/150?img=60"
+        }
+      ]
+    },
+    {
+      "id": 10,
+      "name": "Kids Casual Dress",
+      "price": 1500,
+      "rating": 4.5,
+      "description": "Comfortable casual dress designed especially for kids with soft, skin-friendly fabric ensuring comfort all day long. Perfect for school, playdates, and casual outings. Features cute designs, durable stitching, and easy-care fabric for busy parents.",
+      "sizes": [
+        "S",
+        "M"
+      ],
+      "images": [
+        {
+          "large": "/img/img_lg1.png",
+          "thumb": "/img/img_sm1.png"
+        },
+        {
+          "large": "/img/img_lg2.png",
+          "thumb": "/img/img_sm2.png"
+        },
+        {
+          "large": "/img/img_lg3.png",
+          "thumb": "/img/img_sm3.png"
+        }
+      ],
+      "details": "100% cotton dress with cute prints, reinforced stitching at stress points, easy front opening, and comfortable elastic. Features fun patterns, durable fabric, and machine washable convenience. Available in various child-friendly designs and colors.",
+      "reviews": [
+        {
+          "id": 1,
+          "name": "Parent Ritu",
+          "rating": 5,
+          "text": "Very soft fabric perfect for my toddler's sensitive skin! The dress is comfortable and my daughter loves the print. Has survived multiple washes without fading. The stitching is strong. Highly recommended!",
+          "avatar": "https://i.pravatar.cc/150?img=61"
+        },
+        {
+          "id": 2,
+          "name": "Mother Neha",
+          "rating": 4,
+          "text": "Nice quality kids dress with cute design. My 4-year-old loves wearing it. The fabric is soft and the fit is good. Easy to wash and quick to dry. Could have more size options. Good purchase.",
+          "avatar": "https://i.pravatar.cc/150?img=62"
+        },
+        {
+          "id": 3,
+          "name": "Father Amit",
+          "rating": 5,
+          "text": "Comfortable for kids to play and move freely! The dress allows my daughter to be active without restrictions. The quality is good for the price. The colors are bright and cheerful. Good value.",
+          "avatar": "https://i.pravatar.cc/150?img=63"
+        },
+        {
+          "id": 4,
+          "name": "Parent Pooja",
+          "rating": 5,
+          "text": "Good stitching that has held up through rough play! The dress is durable and comfortable. My child can wear it all day without complaints. Easy to put on and take off. Will buy more colors.",
+          "avatar": "https://i.pravatar.cc/150?img=64"
+        },
+        {
+          "id": 5,
+          "name": "Parent Rohit",
+          "rating": 4,
+          "text": "Value for money kids clothing! The dress is well-made and the fabric is good quality. Has survived multiple washes without shrinking. The design is cute and age-appropriate. Good for daily wear.",
+          "avatar": "https://i.pravatar.cc/150?img=65"
+        },
+        {
+          "id": 6,
+          "name": "Parent Kavita",
+          "rating": 5,
+          "text": "Nice design that kids love! The dress is comfortable and practical. The fabric is breathable for hot weather. The prints are cute without being overwhelming. Perfect for playdates and outings.",
+          "avatar": "https://i.pravatar.cc/150?img=66"
+        }
+      ]
+    },
+    {
+      "id": 11,
+      "name": "Gold Necklace Set",
+      "price": 8000,
+      "rating": 4.9,
+      "description": "Elegant gold necklace set designed for festive and wedding occasions with intricate design and polished finish. This premium jewellery piece adds a touch of luxury to traditional outfits and makes you stand out at special events.",
+      "sizes": [
+        "One Size"
+      ],
+      "images": [
+        {
+          "large": "/img/img_lg1.png",
+          "thumb": "/img/img_sm1.png"
+        },
+        {
+          "large": "/img/img_lg2.png",
+          "thumb": "/img/img_sm2.png"
+        },
+        {
+          "large": "/img/img_lg3.png",
+          "thumb": "/img/img_sm3.png"
+        }
+      ],
+      "details": "Gold-plated necklace set with matching earrings, intricate design, and secure clasps. Features anti-tarnish coating, detailed craftsmanship, and elegant packaging. Includes necklace, earrings, and optional matching bangles. Care instructions included.",
+      "reviews": [
+        {
+          "id": 1,
+          "name": "Renu Malhotra",
+          "rating": 5,
+          "text": "Very elegant necklace set for weddings! Looks luxurious and expensive. The craftsmanship is excellent and the finish is perfect. Received many compliments at the wedding. Worth the investment!",
+          "avatar": "https://i.pravatar.cc/150?img=67"
+        },
+        {
+          "id": 2,
+          "name": "Suman Jain",
+          "rating": 5,
+          "text": "Looks luxurious and well-crafted! Perfect for my daughter's engagement. The set is heavy and looks authentic. The packaging was premium. The quality exceeds expectations for the price. Highly recommended!",
+          "avatar": "https://i.pravatar.cc/150?img=68"
+        },
+        {
+          "id": 3,
+          "name": "Anita Sharma",
+          "rating": 4,
+          "text": "Nice finishing with good detailing! The necklace set looks beautiful with traditional outfits. The clasps are secure. Could offer more design options. Overall good quality jewellery for special occasions.",
+          "avatar": "https://i.pravatar.cc/150?img=69"
+        },
+        {
+          "id": 4,
+          "name": "Poonam Verma",
+          "rating": 5,
+          "text": "Perfect for weddings and festive occasions! The set is stunning and looks expensive. The weight is good and the design is traditional yet modern. Wore it for Diwali and received many compliments.",
+          "avatar": "https://i.pravatar.cc/150?img=70"
+        },
+        {
+          "id": 5,
+          "name": "Neelam Gupta",
+          "rating": 5,
+          "text": "Loved the design and craftsmanship! The necklace set is beautifully made with attention to detail. Perfect for bridal functions. The quality is excellent and it looks much more expensive than it is.",
+          "avatar": "https://i.pravatar.cc/150?img=71"
+        },
+        {
+          "id": 6,
+          "name": "Kiran Mehta",
+          "rating": 4,
+          "text": "Good quality jewellery for the price! The set looks elegant and well-made. The finish is good and it hasn't tarnished with use. Would love matching bracelet option. Good purchase for occasional wear.",
+          "avatar": "https://i.pravatar.cc/150?img=72"
+        }
+      ]
+    },
+    {
+      "id": 12,
+      "name": "Men's Formal Suit",
+      "price": 3800,
+      "rating": 4.6,
+      "description": "Classic men's formal suit designed for office and special events with tailored fit and premium fabric ensuring sharp professional appearance. Perfect for business meetings, interviews, weddings, and formal gatherings where you need to make a strong impression.",
+      "sizes": [
+        "M",
+        "L",
+        "XL"
+      ],
+      "images": [
+        {
+          "large": "/img/img_lg1.png",
+          "thumb": "/img/img_sm1.png"
+        },
+        {
+          "large": "/img/img_lg2.png",
+          "thumb": "/img/img_sm2.png"
+        },
+        {
+          "large": "/img/img_lg3.png",
+          "thumb": "/img/img_sm3.png"
+        }
+      ],
+      "details": "Premium wool-blend suit with tailored fit, notch lapel, two-button closure, and functional pockets. Includes matching trousers with adjustable waistband. Professional dry clean recommended. Available in classic colors suitable for various occasions.",
+      "reviews": [
+        {
+          "id": 1,
+          "name": "Arjun Khanna",
+          "rating": 5,
+          "text": "Excellent fit and comfortable for all-day wear! Perfect for office and client meetings. The fabric is good quality and maintains shape. Looks professional and polished. Great value for regular use.",
+          "avatar": "https://i.pravatar.cc/150?img=1"
+        },
+        {
+          "id": 2,
+          "name": "Manish Gupta",
+          "rating": 4,
+          "text": "Good office wear with professional look. The suit fits well and the fabric is durable. Has held up well after multiple dry cleans. Could use more interior pockets. Overall good quality for the price.",
+          "avatar": "https://i.pravatar.cc/150?img=2"
+        },
+        {
+          "id": 3,
+          "name": "Deepak Sharma",
+          "rating": 5,
+          "text": "Very comfortable suit for long hours! Perfect for conferences and business travel. The fabric breathes well and doesn't wrinkle easily. The fit is consistent across pieces. Highly recommended!",
+          "avatar": "https://i.pravatar.cc/150?img=3"
+        },
+        {
+          "id": 4,
+          "name": "Rakesh Verma",
+          "rating": 4,
+          "text": "Nice stitching with clean finish. The suit looks sharp and professional. The trousers fit perfectly without alterations. Could offer more color options for formal events. Good purchase.",
+          "avatar": "https://i.pravatar.cc/150?img=4"
+        },
+        {
+          "id": 5,
+          "name": "Saurabh Jain",
+          "rating": 5,
+          "text": "Looks professional and fits perfectly! Perfect for interviews and important meetings. The suit gives confidence and looks expensive. The quality is good and it has held up well. Excellent service.",
+          "avatar": "https://i.pravatar.cc/150?img=5"
+        },
+        {
+          "id": 6,
+          "name": "Nitin Malhotra",
+          "rating": 4,
+          "text": "Worth the price for occasional formal wear! The suit is well-made and fits properly. The fabric quality is good for the price range. Perfect for weddings and formal events. Good value purchase.",
+          "avatar": "https://i.pravatar.cc/150?img=6"
         }
       ]
     }

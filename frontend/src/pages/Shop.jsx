@@ -352,8 +352,8 @@ const Shop = () => {
                             <div className="product-price">
                               <span className="price-tag">₹ {product.price}</span>
                             </div>
-                            <div className="product-rating">
-                              <span className="rating-value">{product.rating}</span>
+                            <div className="product-rating" style={{marginBottom: '5px'}}>
+                              <span className="rating-value" style={{marginTop: '5px'}}>{product.rating}</span>
                               <div className="stars">
                                 {renderStars(product.rating)}
                               </div>
