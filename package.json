@@ -1,6 +1,7 @@
 {
   "dependencies": {
     "@fortawesome/fontawesome-free": "^7.1.0",
-    "razorpay": "^2.9.6"
+    "razorpay": "^2.9.6",
+    "react-transition-group": "^4.4.5"
   }
 }
