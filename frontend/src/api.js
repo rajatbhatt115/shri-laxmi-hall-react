@@ -67,8 +67,8 @@ const api = {
     axios.delete(`${API_BASE_URL}/wishlistItems/${id}`),
 
   // ==================== PRODUCT DETAILS ====================
-  getProductDetails: (id) => 
-    axios.get(`${API_BASE_URL}/productDetails/${id}`)
+getProductDetails: (id) =>
+  axios.get(`${API_BASE_URL}/productDetails?id=${id}`),
 };
 
 export default api;

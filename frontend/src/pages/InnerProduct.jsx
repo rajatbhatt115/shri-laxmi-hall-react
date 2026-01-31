@@ -3,6 +3,7 @@ import { Container, Row, Col, Form } from 'react-bootstrap';
 import HeroSection from '../components/HeroSection';
 import api from '../api';
 import { FaHeart, FaMinus, FaPlus, FaPaperPlane, FaEye, FaRedo, FaStar, FaRegStar, FaStarHalfAlt } from 'react-icons/fa';
+import { useParams } from 'react-router-dom';
 
 const InnerProduct = () => {
   const [mainImage, setMainImage] = useState('/img/img_lg1.png');
@@ -26,92 +27,116 @@ const InnerProduct = () => {
   const [paymentStatus, setPaymentStatus] = useState(null);
   const [showStatusModal, setShowStatusModal] = useState(false);
 
-  // Mock data structure matching the HTML
+  const { id } = useParams();
+
+  // Mock data for fallback
   const mockProduct = {
+    id: 1,
     name: "Women's Summer Dress",
     price: 2000,
     rating: 4.9,
-    description: "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.",
+    description: "Lorem Ipsum is simply dummy text of the printing and typesetting industry.",
+    details: "Premium quality fabric with stylish fit and elegant finishing.",
     sizes: ['XS', 'S', 'M', 'L', 'XL', 'XXL'],
     images: [
       { large: '/img/img_lg1.png', thumb: '/img/img_sm1.png' },
       { large: '/img/img_lg2.png', thumb: '/img/img_sm2.png' },
       { large: '/img/img_lg3.png', thumb: '/img/img_sm3.png' }
+    ],
+    reviews: [
+      {
+        id: 1,
+        name: 'Priya Sharma',
+        rating: 4,
+        text: 'Excellent quality! The dress fits perfectly and the fabric is very comfortable.',
+        avatar: '/img/user1.jpg'
+      }
     ]
   };
 
-  // Initial reviews data
-  const initialReviews = [
-    {
-      id: 1,
-      name: 'Priya Sharma',
-      rating: 4,
-      text: 'Excellent quality! The dress fits perfectly and the fabric is very comfortable. I\'ve received so many compliments!',
-      avatar: 'https://images.unsplash.com/photo-1524504388940-b1c1722653e1?q=80&w=687&auto=format&fit=crop'
-    },
-    {
-      id: 2,
-      name: 'Rahul Verma',
-      rating: 5,
-      text: 'Best purchase ever! The stitching is excellent and the color looks exactly like in the picture. Very fast delivery too!',
-      avatar: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=150&auto=format&fit=crop&q=80'
-    },
-    {
-      id: 3,
-      name: 'Anjali Patel',
-      rating: 4,
-      text: 'Love this dress! Perfect for summer parties. The quality exceeded my expectations. Will definitely buy again.',
-      avatar: 'https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=150&auto=format&fit=crop&q=80'
-    },
-    {
-      id: 4,
-      name: 'Vikram Singh',
-      rating: 3,
-      text: 'Good quality fabric, but the size was slightly smaller than expected. Would recommend ordering one size up.',
-      avatar: 'https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=150&auto=format&fit=crop&q=80'
-    },
-    {
-      id: 5,
-      name: 'Neha Gupta',
-      rating: 4,
-      text: 'Beautiful design and perfect for office wear. The material is breathable and doesn\'t wrinkle easily.',
-      avatar: 'https://images.unsplash.com/photo-1544005313-94ddf0286df2?w=150&auto=format&fit=crop&q=80'
-    },
-    {
-      id: 6,
-      name: 'Raj Malhotra',
-      rating: 5,
-      text: 'Perfect fit and amazing quality! I\'ve ordered 3 more dresses from this store. Highly recommended!',
-      avatar: 'https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?w=150&auto=format&fit=crop&q=80'
-    }
-  ];
-
-  useEffect(() => {
-    const fetchProduct = async () => {
-      try {
-        // Using mock data for now
-        setProduct(mockProduct);
-        setMainImage('/img/img_lg1.png');
-        setReviews(initialReviews);
-      } catch (error) {
-        console.error('Error fetching product:', error);
-        // Fallback to mock data
-        setProduct(mockProduct);
-        setMainImage('/img/img_lg1.png');
-        setReviews(initialReviews);
-      } finally {
-        setLoading(false);
+ 
+ // SINGLE useEffect for fetching product
+useEffect(() => {
+  const fetchProduct = async () => {
+    try {
+      setLoading(true);
+      
+      if (!id) {
+        console.error('Product ID not found in URL');
+        throw new Error('Product ID not found');
       }
-    };
+      
+      console.log('Fetching product with ID:', id);
+      
+      // API call to get product details
+      const response = await api.getProductDetails(id);
+      
+      console.log('API Response:', response);
+      
+      let productData = null;
+      let productReviews = [];
+      
+      if (response && response.data) {
+        // If response.data is an array, find the product with matching id
+        if (Array.isArray(response.data)) {
+          productData = response.data.find(p => p.id === parseInt(id));
+          if (productData && productData.reviews) {
+            productReviews = productData.reviews;
+          }
+        } 
+        // If response.data is a single product object
+        else if (typeof response.data === 'object') {
+          productData = response.data;
+          if (productData.reviews) {
+            productReviews = productData.reviews;
+          }
+        }
+      }
+      
+      if (productData) {
+        setProduct(productData);
+        if (productData.images && productData.images.length > 0) {
+          setMainImage(productData.images[0].large);
+        }
+        // Set reviews from product data
+        if (productReviews.length > 0) {
+          setReviews(productReviews);
+        } else {
+          // Fallback to mock reviews if API doesn't provide reviews
+          console.warn('No reviews in API response, using mock reviews');
+          setReviews(mockProduct.reviews);
+        }
+      } else {
+        console.warn('Product not found in API response, using mock data');
+        setProduct(mockProduct);
+        setReviews(mockProduct.reviews);
+      }
+      
+    } catch (error) {
+      console.error('Error fetching product:', error);
+      setProduct(mockProduct);
+      setReviews(mockProduct.reviews);
+    } finally {
+      setLoading(false);
+    }
+  };
 
+  if (id) {
     fetchProduct();
-  }, []);
+  } else {
+    setProduct(mockProduct);
+    setReviews(mockProduct.reviews);
+    setLoading(false);
+  }
+}, [id]);
 
   // Auto slide reviews
   useEffect(() => {
-    reviewTimerRef.current = setInterval(() => {
-      setCurrentReviewSlide(prev => (prev + 1) % Math.ceil(reviews.length / 3));
-    }, 5000);
+    if (reviews.length > 0) {
+      reviewTimerRef.current = setInterval(() => {
+        setCurrentReviewSlide(prev => (prev + 1) % Math.ceil(reviews.length / 3));
+      }, 5000);
+    }
 
     return () => {
       if (reviewTimerRef.current) {
@@ -160,7 +185,10 @@ const InnerProduct = () => {
     alert(`Added to cart:\nProduct: ${cartItem.product}\nSize: ${cartItem.size}\nQuantity: ${cartItem.quantity}\nTotal: ₹${cartItem.total}`);
   };
 
+<<<<<<< HEAD
+=======
   // RAZORPAY PAYMENT HANDLER FOR BUY NOW BUTTON
+>>>>>>> staging
   const handleBuyNow = () => {
     if (!window.Razorpay) {
       alert("Razorpay SDK not loaded. Please refresh the page.");
@@ -170,8 +198,13 @@ const InnerProduct = () => {
     const totalPrice = product.price * quantity;
 
     const options = {
+<<<<<<< HEAD
+      key: "rzp_test_1DP5mmOlF5G5ag",
+      amount: totalPrice * 100,
+=======
       key: "rzp_test_1DP5mmOlF5G5ag", // Replace with your Razorpay key
       amount: totalPrice * 100, // Amount in paise
+>>>>>>> staging
       currency: "INR",
       name: "Fashion Store",
       description: `Product: ${product.name} - Size: ${selectedSize}`,
@@ -227,28 +260,36 @@ const InnerProduct = () => {
       return;
     }
 
-    // Generate random avatar from Unsplash
-    const avatarIds = [
-      '1524504388940-b1c1722653e1',
-      '1507003211169-0a1dd7228f2d',
-      '1438761681033-6461ffad8d80',
-      '1500648767791-00dcc994a43e',
-      '1544005313-94ddf0286df2',
-      '1506794778202-cad84cf45f1d'
-    ];
-    const randomAvatar = `https://images.unsplash.com/photo-${avatarIds[Math.floor(Math.random() * avatarIds.length)]}?w=150&auto=format&fit=crop&q=80`;
+    const avatarOptions = ['/img/user1.jpg', '/img/user2.jpg', '/img/user3.jpg', '/img/user4.jpg', '/img/user5.jpg', '/img/user6.jpg'];
+    const randomAvatar = avatarOptions[Math.floor(Math.random() * avatarOptions.length)];
 
     const newReview = {
-      id: reviews.length + 1,
+      id: reviews.length > 0 ? Math.max(...reviews.map(r => r.id)) + 1 : 1,
       name: `${reviewForm.firstName} ${reviewForm.lastName}`,
       rating: reviewForm.rating,
       text: reviewForm.comment,
       avatar: randomAvatar
     };
 
-    // Add new review to the beginning
+    // Add new review locally
     const updatedReviews = [newReview, ...reviews];
     setReviews(updatedReviews);
+
+    // Update product with new review
+    if (product) {
+      const updatedProduct = {
+        ...product,
+        reviews: updatedReviews
+      };
+      setProduct(updatedProduct);
+    }
+
+    // Here you should save to your API
+    // api.submitReview(id, newReview).then(response => {
+    //   console.log('Review saved:', response);
+    // }).catch(error => {
+    //   console.error('Error saving review:', error);
+    // });
 
     // Reset form
     setReviewForm({
@@ -320,7 +361,6 @@ const InnerProduct = () => {
   // Handle dot click
   const handleDotClick = (index) => {
     setCurrentReviewSlide(index);
-    // Reset timer
     if (reviewTimerRef.current) {
       clearInterval(reviewTimerRef.current);
     }
@@ -333,25 +373,65 @@ const InnerProduct = () => {
   const totalDots = Math.ceil(reviews.length / 3);
 
   if (loading) {
-    return <div style={{ textAlign: 'center', padding: '50px', color: '#FF7E00' }}>Loading product...</div>;
+    return (
+      <div style={{ 
+        textAlign: 'center', 
+        padding: '100px 0',
+        minHeight: '50vh',
+        display: 'flex',
+        flexDirection: 'column',
+        alignItems: 'center',
+        justifyContent: 'center'
+      }}>
+        <div className="spinner-border text-warning" role="status" style={{ width: '3rem', height: '3rem' }}>
+          <span className="visually-hidden">Loading...</span>
+        </div>
+        <p style={{ marginTop: '20px', color: '#FF7E00', fontSize: '18px' }}>
+          Loading product details...
+        </p>
+      </div>
+    );
   }
 
   if (!product) {
-    return <div style={{ textAlign: 'center', padding: '50px', color: '#FF7E00' }}>Product not found</div>;
+    return (
+      <div style={{ 
+        textAlign: 'center', 
+        padding: '100px 0',
+        minHeight: '50vh'
+      }}>
+        <h3 style={{ color: '#FF7E00', marginBottom: '20px' }}>Product Not Found</h3>
+        <p style={{ color: '#666', marginBottom: '30px' }}>
+          The product you're looking for doesn't exist or has been removed.
+        </p>
+        <a 
+          href="/shop" 
+          style={{
+            padding: '12px 30px',
+            background: '#FF7E00',
+            color: 'white',
+            textDecoration: 'none',
+            borderRadius: '25px',
+            fontWeight: '600',
+            display: 'inline-block'
+          }}
+        >
+          Browse Other Products
+        </a>
+      </div>
+    );
   }
 
   const totalPrice = product.price * quantity;
-  const totalReviews = 487162 + reviews.length - initialReviews.length; // Adjust for new reviews
+  const totalReviews = reviews.length;
 
   return (
     <>
       <HeroSection pageName="product" />
 
-      {/* Product Detail Section */}
       <section className="product-detail-section" style={{ padding: '80px 0', background: '#fff' }}>
         <Container>
           <Row>
-            {/* Product Images */}
             <Col lg={6}>
               <div className="main-product-image" style={{ position: 'relative', borderRadius: '20px', overflow: 'hidden', height: '400px', boxShadow: '0 10px 30px rgba(0,0,0,0.1)' }}>
                 <img
@@ -361,7 +441,6 @@ const InnerProduct = () => {
                 />
                 <button
                   onClick={handleWishlistToggle}
-                  className="wishlist-btn"
                   style={{
                     position: 'absolute',
                     top: '20px',
@@ -375,12 +454,15 @@ const InnerProduct = () => {
                     alignItems: 'center',
                     justifyContent: 'center',
                     cursor: 'pointer',
-                    transition: 'all 0.3s',
                     boxShadow: '0 4px 15px rgba(0,0,0,0.1)',
                     zIndex: 10
                   }}
                 >
-                  <i className={wishlisted ? 'fas fa-heart' : 'far fa-heart'} style={{ color: wishlisted ? 'white' : '#FF7E00', fontSize: '20px' }} />
+                  {wishlisted ? (
+                    <FaHeart size={20} color="white" />
+                  ) : (
+                    <FaHeart size={20} color="#FF7E00" />
+                  )}
                 </button>
               </div>
               <div className="thumbnail-container" style={{ display: 'flex', gap: '15px', marginTop: '20px' }}>
@@ -410,7 +492,6 @@ const InnerProduct = () => {
               </div>
             </Col>
 
-            {/* Product Info */}
             <Col lg={6}>
               <div className="product-info-container" style={{ paddingLeft: '40px', paddingTop: '20px' }}>
                 <h1 className="product-name" style={{ fontSize: '32px', fontWeight: '700', color: '#2D2D2D', marginBottom: '20px' }}>
@@ -427,12 +508,11 @@ const InnerProduct = () => {
                   <div className="stars" style={{ color: '#FFB800', fontSize: '20px' }}>
                     {renderStars(product.rating)}
                   </div>
-                  <span className="rating-text" style={{ color: '#666', fontSize: '16px', marginLeft: '5px' }}>
+                  <span className="rating-text" style={{ color: '#666', fontSize: '16px', marginLeft: '5px', marginTop: '10px' }}>
                     ({product.rating})
                   </span>
                 </div>
 
-                {/* Size Selection */}
                 <div className="size-section" style={{ marginBottom: '30px' }}>
                   <div className="section-label" style={{ fontWeight: '600', color: '#2D2D2D', marginBottom: '15px', fontSize: '16px' }}>
                     Size: {selectedSize}
@@ -461,7 +541,6 @@ const InnerProduct = () => {
                   </div>
                 </div>
 
-                {/* Quantity Selection */}
                 <div className="quantity-section" style={{ marginBottom: '30px' }}>
                   <div className="quantity-controls" style={{ display: 'flex', alignItems: 'center', gap: '15px' }}>
                     <button
@@ -513,7 +592,6 @@ const InnerProduct = () => {
                   </div>
                 </div>
 
-                {/* Action Buttons */}
                 <div className="action-buttons" style={{ display: 'flex', gap: '15px', marginBottom: '30px' }}>
                   <button
                     className="btn-buy-now"
@@ -529,7 +607,11 @@ const InnerProduct = () => {
                       cursor: 'pointer',
                       transition: 'all 0.3s'
                     }}
+<<<<<<< HEAD
+                    onClick={handleBuyNow}
+=======
                     onClick={handleBuyNow} // Updated to use Razorpay handler
+>>>>>>> staging
                   >
                     Buy Now
                   </button>
@@ -556,7 +638,6 @@ const InnerProduct = () => {
             </Col>
           </Row>
 
-          {/* Tabs Section */}
           <div className="product-tabs" style={{ marginTop: '60px', borderBottom: '3px solid #f0f0f0' }}>
             <div className="tab-buttons" style={{ display: 'flex', gap: '40px' }}>
               <button
@@ -616,36 +697,28 @@ const InnerProduct = () => {
             </div>
           </div>
 
-          {/* Product Details Tab */}
           <div className="tab-content" style={{ padding: '40px 0 0' }}>
             {activeTab === 'details' && (
               <div className="tab-pane active">
                 <p style={{ color: '#666', lineHeight: '1.8', marginBottom: '20px' }}>{product.description}</p>
                 <p style={{ color: '#666', lineHeight: '1.8', marginBottom: '20px' }}>
-                  It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout.
-                </p>
-                <p style={{ color: '#666', lineHeight: '1.8', marginBottom: '20px' }}>
-                  There are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in some form, by injected humour, or randomised words which don't look even slightly believable.
-                </p>
-                <p style={{ color: '#666', lineHeight: '1.8', marginBottom: '20px' }}>
-                  Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.
+                 {product.details}
                 </p>
               </div>
             )}
 
-            {/* Reviews Tab */}
             {activeTab === 'reviews' && (
               <div className="tab-pane active">
                 <div className="reviews-header" style={{ display: 'flex', alignItems: 'center', gap: '15px', marginBottom: '40px', paddingBottom: '20px', borderBottom: '2px solid #f0f0f0' }}>
                   <div className="stars" style={{ color: '#FFB800', fontSize: '24px' }}>
                     {renderStars(product.rating)}
                   </div>
-                  <span className="reviews-count" style={{ color: '#666', fontSize: '18px' }}>
+                  <span className="reviews-count" style={{ color: '#666', fontSize: '18px', marginTop: '10px' }}>
                     ({product.rating}) • {totalReviews.toLocaleString()} Reviews
                   </span>
                 </div>
 
-                {/* Reviews Container with Slider */}
+                {/* Reviews Container with Slider - UPDATED */}
                 {reviews && reviews.length > 0 ? (
                   <>
                     <div className="reviews-container" style={{
@@ -695,7 +768,6 @@ const InnerProduct = () => {
                       ))}
                     </div>
 
-                    {/* Review Slider Dots */}
                     <div className="review-dots" style={{ display: 'flex', justifyContent: 'center', gap: '10px', marginTop: '30px', minHeight: '20px' }}>
                       {Array.from({ length: totalDots }).map((_, index) => (
                         <div
@@ -739,7 +811,6 @@ const InnerProduct = () => {
                         transition: 'all 0.3s'
                       }}
                       onClick={() => {
-                        // Scroll to review form
                         document.getElementById('reviewForm')?.scrollIntoView({ behavior: 'smooth' });
                       }}
                     >
@@ -748,16 +819,16 @@ const InnerProduct = () => {
                   </div>
                 )}
 
-                {/* Add Comment Form with Light Gray Background */}
                 <div style={{
                   background: '#fff4e6',
                   padding: '60px',
                   borderRadius: '20px',
-                  boxShadow: '0 5px 20px rgba(0,0,0,0.05)', marginTop: '60px'
+                  boxShadow: '0 5px 20px rgba(0,0,0,0.05)', 
+                  marginTop: '60px'
                 }}>
                   <Row className="d-flex justify-content-center align-items-center" id="reviewForm">
                     <Col lg={6} md={6} xs={12}>
-                      <div className="add-review-form" style={{marginTop: '0px'}}>
+                      <div className="add-review-form" style={{ marginTop: '0px' }}>
                         <h3 className="form-title" style={{
                           color: '#2D2D2D',
                           fontSize: '24px',
@@ -869,7 +940,6 @@ const InnerProduct = () => {
                             className="d-flex flex-column align-items-center"
                             style={{ gap: '20px' }}
                           >
-                            {/* TOP BUTTON (CENTERED) */}
                             <button
                               type="submit"
                               className="btn-submit-review"
@@ -892,14 +962,12 @@ const InnerProduct = () => {
                               <FaPaperPlane /> Post Your Comment
                             </button>
 
-
-                            {/* BOTTOM BUTTONS (SAME WIDTH AS TOP) */}
                             <div
                               style={{
                                 display: 'flex',
                                 gap: '15px',
                                 width: '100%',
-                                maxWidth: '420px' // 👈 adjust if needed
+                                maxWidth: '501px'
                               }}
                             >
                               <button
@@ -956,7 +1024,6 @@ const InnerProduct = () => {
                             </div>
                           </div>
 
-
                         </Form>
                       </div>
                     </Col>
@@ -966,13 +1033,12 @@ const InnerProduct = () => {
                         alt="Comment"
                         style={{
                           width: '100%',
-                          maxWidth: '500px',   // 🔼 yahan control
+                          maxWidth: '500px',
                           height: 'auto',
                           margin: '0 auto'
                         }}
                       />
                     </Col>
-
                   </Row>
                 </div>
               </div>
