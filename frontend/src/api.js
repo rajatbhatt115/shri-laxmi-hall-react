@@ -12,35 +12,39 @@ const api = {
 
   // ==================== HOME PAGE COMPONENTS ====================
   getDiscoverProducts: () => axios.get(`${API_BASE_URL}/discoverProducts`),
-  
+
   getCategories: () => axios.get(`${API_BASE_URL}/categories`),
-  
-  getTopRatingProducts: (category = 'kids') => 
+
+  getTopRatingProducts: (category = 'kids') =>
     axios.get(`${API_BASE_URL}/topRatingProducts/${category}`),
-  
+
   getTestimonials: () => axios.get(`${API_BASE_URL}/testimonials`),
-  
+
   getBlogHome: () => axios.get(`${API_BASE_URL}/blogHome`),
-  
+
   getAboutContent: () => axios.get(`${API_BASE_URL}/aboutContent/1`),
 
   // ==================== ABOUT PAGE ====================
   getAboutData: () => axios.get(`${API_BASE_URL}/aboutContent/1`),
-  
+
   getTeam: () => axios.get(`${API_BASE_URL}/team`),
 
   // ==================== BLOG PAGE ====================
   getBlogPages: () => axios.get(`${API_BASE_URL}/blogPages`),
-  
+
   getBlogPage: (page) => axios.get(`${API_BASE_URL}/blogPages/${page}`),
 
   // ==================== INNER BLOG PAGE ====================
   getInnerBlog: (id) => axios.get(`${API_BASE_URL}/innerBlog/${id}`),
-  
+
+  // ==================== BLOG COMMENTS ====================
+ addBlogComment: (blogId, commentData) => 
+  axios.post(`${API_BASE_URL}/innerBlog/${blogId}/comments`, commentData),
+
 
   // ==================== SHOP PAGE ====================
   getProducts: () => axios.get(`${API_BASE_URL}/products`),
-  
+
   searchProducts: (filters) => {
     const params = new URLSearchParams();
     Object.keys(filters).forEach(key => {
@@ -51,31 +55,40 @@ const api = {
 
   // ==================== CART PAGE ====================
   getCartItems: () => axios.get(`${API_BASE_URL}/cartItems`),
-  
-  updateCartItem: (id, data) => 
+
+  updateCartItem: (id, data) =>
     axios.patch(`${API_BASE_URL}/cartItems/${id}`, data),
-  
-  deleteCartItem: (id) => 
+
+  deleteCartItem: (id) =>
     axios.delete(`${API_BASE_URL}/cartItems/${id}`),
 
-    addToCart: (data) => 
+  addToCart: (data) =>
     axios.post(`${API_BASE_URL}/cartItems`, data),
 
   // ==================== WISHLIST PAGE ====================
   getWishlistItems: () => axios.get(`${API_BASE_URL}/wishlistItems`),
 
-   addToWishlist: (data) => 
+  addToWishlist: (data) =>
     axios.post(`${API_BASE_URL}/wishlistItems`, data),
-  
-  updateWishlistItem: (id, data) => 
+
+  updateWishlistItem: (id, data) =>
     axios.patch(`${API_BASE_URL}/wishlistItems/${id}`, data),
-  
-  deleteWishlistItem: (id) => 
+
+  deleteWishlistItem: (id) =>
     axios.delete(`${API_BASE_URL}/wishlistItems/${id}`),
 
   // ==================== PRODUCT DETAILS ====================
-  getProductDetails: (id) => 
-    axios.get(`${API_BASE_URL}/productDetails/${id}`)
+  getProductDetails: (id) =>
+    axios.get(`${API_BASE_URL}/productDetails/${id}`),
+
+  // ==================== REVIEWS ====================
+  getProductReviews: (productId) =>
+    axios.get(`${API_BASE_URL}/productReviews?productId=${productId}`),
+
+  addProductReview: (data) =>
+    axios.post(`${API_BASE_URL}/productReviews`, data)
+
 };
+
 
 export default api;

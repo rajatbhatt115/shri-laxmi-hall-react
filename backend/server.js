@@ -111,12 +111,12 @@ server.get('/api/blogPages/:page', (req, res) => {
   }
 })
 
-// 7. Get inner blog
+// 7. Get inner blog (अपडेटेड वर्जन)
 server.get('/api/innerBlog/:id', (req, res) => {
   const { id } = req.params
   const db = router.db
   
-  // Try to find in innerBlog array (create if doesn't exist)
+  // Try to find in innerBlog array
   const innerBlogs = db.get('innerBlog').value()
   
   if (innerBlogs) {
@@ -130,34 +130,83 @@ server.get('/api/innerBlog/:id', (req, res) => {
       res.status(404).json({ error: 'Inner blog not found' })
     }
   } else {
-    // Create default inner blog if doesn't exist
-    const defaultInnerBlog = {
-      id: 1,
-      title: "Lorem Ipsum is simply dummy text of the printing and typesetting industry.",
-      content: "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.",
-      author: "Kiran Patel",
-      date: "20 May 2023",
-      authorImage: "img/ic_kiran.png",
-      comments: [
-        {
-          id: 1,
-          name: "Priya Sharma",
-          date: "25 May 2023",
-          text: "Excellent blog post! Very informative and well-written.",
-          avatar: "https://i.pravatar.cc/150?img=1"
-        },
-        {
-          id: 2,
-          name: "Rahul Verma",
-          date: "22 May 2023",
-          text: "Thanks for sharing this valuable information. Looking forward to more posts!",
-          avatar: "https://i.pravatar.cc/150?img=2"
-        }
-      ]
-    }
-    res.json(defaultInnerBlog)
+    res.status(404).json({ error: 'No blogs found' })
   }
 })
+
+// 8. Add blog comment to innerBlog (डीबग वर्जन)
+server.post('/api/innerBlog/:id/comments', (req, res) => {
+  try {
+    console.log('=== POST /api/innerBlog/:id/comments called ===');
+    const { id } = req.params;
+    const newComment = req.body;
+    
+    console.log('Blog ID:', id);
+    console.log('Received comment data:', newComment);
+    
+    const db = router.db;
+    
+    // Find the blog
+    const innerBlogs = db.get('innerBlog').value();
+    console.log('All blogs:', innerBlogs);
+    
+    const blogIndex = innerBlogs.findIndex(b => b.id === parseInt(id));
+    console.log('Blog index found:', blogIndex);
+    
+    if (blogIndex === -1) {
+      console.log('Blog not found');
+      res.status(404).json({ error: 'Blog not found' });
+      return;
+    }
+    
+    const blog = innerBlogs[blogIndex];
+    console.log('Found blog:', blog);
+    
+    // Generate comment ID
+    const existingComments = blog.comments || [];
+    console.log('Existing comments:', existingComments);
+    
+    const newCommentId = existingComments.length > 0 
+      ? Math.max(...existingComments.map(c => c.id)) + 1 
+      : 1;
+    
+    console.log('New comment ID:', newCommentId);
+    
+    // Prepare comment object WITHOUT contact and email
+    const commentToAdd = {
+      id: newCommentId,
+      name: newComment.name,
+      date: new Date().toLocaleDateString('en-US', { 
+        day: 'numeric', 
+        month: 'long', 
+        year: 'numeric' 
+      }),
+      text: newComment.text,
+      avatar: newComment.avatar || `https://i.pravatar.cc/150?img=${Math.floor(Math.random() * 70) + 1}`
+    };
+    
+    console.log('Comment to add:', commentToAdd);
+    
+    // Add comment to blog's comments array
+    if (!blog.comments) {
+      blog.comments = [];
+    }
+    blog.comments.push(commentToAdd);
+    console.log('Updated blog comments:', blog.comments);
+    
+    // Save changes
+    db.get('innerBlog').write();
+    console.log('Data saved successfully');
+    
+    res.status(201).json(commentToAdd);
+  } catch (error) {
+    console.error('Error in POST /api/innerBlog/:id/comments:', error);
+    res.status(500).json({ 
+      error: 'Internal server error',
+      message: error.message 
+    });
+  }
+});
 
 // Add to Wishlist endpoint
 server.post('/api/wishlistItems', (req, res) => {
@@ -193,6 +242,74 @@ server.post('/api/cartItems', (req, res) => {
   // Add to cart
   db.get('cartItems').push(newItem).write();
   res.status(201).json(newItem);
+});
+
+// server.js में ये changes करें:
+
+// 8. Add product review to productDetails
+server.post('/api/productReviews', (req, res) => {
+  const db = router.db;
+  const newReview = req.body;
+  
+  // Find the product
+  const productDetails = db.get('productDetails').value();
+  const productIndex = productDetails.findIndex(p => p.id === parseInt(newReview.productId));
+  
+  if (productIndex === -1) {
+    res.status(404).json({ error: 'Product not found' });
+    return;
+  }
+  
+  const product = productDetails[productIndex];
+  
+  // Generate review ID
+  const existingReviews = product.reviews || [];
+  const newReviewId = existingReviews.length > 0 
+    ? Math.max(...existingReviews.map(r => r.id)) + 1 
+    : 1;
+  
+  // Prepare review object WITHOUT date
+  const reviewToAdd = {
+    id: newReviewId,
+    name: newReview.name,
+    rating: newReview.rating,
+    text: newReview.comment, // Save comment as text
+    avatar: newReview.avatar
+    // NO date field
+  };
+  
+  // Add review to product's reviews array
+  if (!product.reviews) {
+    product.reviews = [];
+  }
+  product.reviews.push(reviewToAdd);
+  
+  // Update product rating
+  const allReviews = product.reviews;
+  const averageRating = allReviews.reduce((sum, review) => sum + review.rating, 0) / allReviews.length;
+  product.rating = parseFloat(averageRating.toFixed(1));
+  
+  // Save changes
+  db.get('productDetails').write();
+  
+  res.status(201).json(reviewToAdd);
+});
+
+// 9. Get product reviews from productDetails
+server.get('/api/productReviews', (req, res) => {
+  const { productId } = req.query;
+  const db = router.db;
+  
+  const productDetails = db.get('productDetails').value();
+  const product = productDetails.find(p => p.id === parseInt(productId));
+  
+  if (!product) {
+    res.status(404).json({ error: 'Product not found' });
+    return;
+  }
+  
+  const reviews = product.reviews || [];
+  res.json(reviews);
 });
 
 // Use the router for all other endpoints

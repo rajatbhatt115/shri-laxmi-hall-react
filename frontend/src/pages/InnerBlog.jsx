@@ -22,11 +22,11 @@ const InnerBlog = () => {
       try {
         setLoading(true)
         console.log('Fetching blog ID:', id)
-        
+
         // API से blog data fetch करें
         const response = await api.getInnerBlog(id)
         console.log('API Response:', response.data)
-        
+
         if (response.data) {
           setBlogData(response.data)
           setComments(response.data.comments || [])
@@ -54,35 +54,61 @@ const InnerBlog = () => {
     })
   }
 
-  const handleCommentSubmit = (e) => {
-    e.preventDefault()
 
-    const newComment = {
-      id: comments.length + 1,
+  // InnerBlog.js में handleCommentSubmit फंक्शन को अपडेट करें:
+
+const handleCommentSubmit = async (e) => {
+  e.preventDefault()
+
+  try {
+    console.log('Submitting comment for blog ID:', id);
+    console.log('Comment form data:', commentForm);
+
+    const newCommentData = {
       name: `${commentForm.firstName} ${commentForm.lastName}`,
-      date: new Date().toLocaleDateString('en-US', { day: 'numeric', month: 'long', year: 'numeric' }),
       text: commentForm.message,
+      // केवल name और text भेज रहे हैं
       avatar: `https://i.pravatar.cc/150?img=${Math.floor(Math.random() * 70) + 1}`
     }
 
-    setComments([newComment, ...comments])
+    console.log('Data being sent to API:', newCommentData);
 
-    alert('Your comment has been posted successfully!')
+    // API call to save comment
+    const response = await api.addBlogComment(id, newCommentData);
+    
+    console.log('API response:', response);
+    console.log('Response data:', response.data);
 
-    setCommentForm({
-      firstName: '',
-      lastName: '',
-      contact: '',
-      email: '',
-      message: ''
-    })
+    if (response.data) {
+      // Update comments state with new comment
+      setComments([response.data, ...comments]);
+      
+      alert('Your comment has been posted successfully!');
+
+      // Reset form
+      setCommentForm({
+        firstName: '',
+        lastName: '',
+        contact: '',
+        email: '',
+        message: ''
+      });
+    } else {
+      console.error('No data in response');
+      alert('Failed to post comment. Please try again.');
+    }
+  } catch (error) {
+    console.error('Error posting comment:', error);
+    console.error('Error details:', error.response?.data || error.message);
+    alert('Failed to post comment. Please try again.');
   }
+};
 
   if (loading) {
     return (
-      <div style={{ 
-        textAlign: 'center', 
-        padding: '50px', 
+      <div style={{
+        textAlign: 'center',
+        padding: '50px',
         color: '#FF7E00',
         minHeight: '50vh',
         display: 'flex',
@@ -100,9 +126,9 @@ const InnerBlog = () => {
 
   if (!blogData) {
     return (
-      <div style={{ 
-        textAlign: 'center', 
-        padding: '50px', 
+      <div style={{
+        textAlign: 'center',
+        padding: '50px',
         color: '#FF7E00',
         minHeight: '50vh',
         display: 'flex',
@@ -245,48 +271,49 @@ const InnerBlog = () => {
                     >
                       Post Comment
                     </Button>
-                </Form>
+                  </Form>
+                </div>
               </div>
-            </div>
-          </Col>
+            </Col>
 
-          {/* Posted Comments */}
-          <Col lg={6} className="comment-column">
-            <h3 className="section-title">Comments</h3>
-            <div className="comments-container">
-              <div className="comments-list-wrapper">
-                <div className="comments-list" id="commentsList">
-                  {comments.map(comment => (
-                    <div className="comment-item" key={comment.id}>
-                      <div className="comment-header">
-                        <div
-                          className="comment-avatar"
-                          style={{ 
-                            backgroundImage: `url(${comment.avatar})`,
-                            width: '50px',
-                            height: '50px',
-                            borderRadius: '50%',
-                            backgroundSize: 'cover'
-                          }}
-                        ></div>
-                        <div className="comment-author">
-                          <h5>{comment.name}</h5>
-                          <span className="comment-date">{comment.date}</span>
+            {/* Posted Comments */}
+            <Col lg={6} className="comment-column">
+              <h3 className="section-title">Comments</h3>
+              <div className="comments-container">
+                <div className="comments-list-wrapper">
+                  <div className="comments-list" id="commentsList">
+                    {comments.map(comment => (
+                      <div className="comment-item" key={comment.id}>
+                        <div className="comment-header">
+                          <div
+                            className="comment-avatar"
+                            style={{
+                              backgroundImage: `url(${comment.avatar})`,
+                              width: '50px',
+                              height: '50px',
+                              borderRadius: '50%',
+                              backgroundSize: 'cover'
+                            }}
+                          ></div>
+                          <div className="comment-author">
+                            <h5>{comment.name}</h5>
+                            <span className="comment-date">{comment.date}</span>
+                            {/* यहाँ contact और email नहीं दिखाएंगे */}
+                          </div>
                         </div>
+                        <p className="comment-text">{comment.text}</p>
                       </div>
-                      <p className="comment-text">{comment.text}</p>
-                    </div>
-                  ))}
-                </div>
-                <div className="mt-3 text-center">
-                  <small className="text-muted">Scroll to see more comments</small>
+                    ))}
+                  </div>
+                  <div className="mt-3 text-center">
+                    <small className="text-muted">Scroll to see more comments</small>
+                  </div>
                 </div>
               </div>
-            </div>
-          </Col>
-        </Row>
-      </Container>
-    </section>
+            </Col>
+          </Row>
+        </Container>
+      </section>
     </>
   )
 }

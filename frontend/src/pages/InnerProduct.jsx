@@ -1,6 +1,5 @@
 import { useState, useEffect, useRef } from 'react';
 import { Container, Row, Col, Form } from 'react-bootstrap';
-import { Link } from 'react-router-dom';
 import HeroSection from '../components/HeroSection';
 import api from '../api';
 import { FaHeart, FaMinus, FaPlus, FaPaperPlane, FaEye, FaRedo, FaStar, FaRegStar, FaStarHalfAlt, FaShoppingCart } from 'react-icons/fa';
@@ -29,100 +28,81 @@ const InnerProduct = () => {
   const [paymentStatus, setPaymentStatus] = useState(null);
   const [showStatusModal, setShowStatusModal] = useState(false);
 
-  // Initial reviews data
-  const initialReviews = [
-    {
-      id: 1,
-      name: 'Priya Sharma',
-      rating: 4,
-      text: 'Excellent quality! The dress fits perfectly and the fabric is very comfortable. I\'ve received so many compliments!',
-      avatar: 'https://images.unsplash.com/photo-1524504388940-b1c1722653e1?q=80&w=687&auto=format&fit=crop'
-    },
-    {
-      id: 2,
-      name: 'Rahul Verma',
-      rating: 5,
-      text: 'Best purchase ever! The stitching is excellent and the color looks exactly like in the picture. Very fast delivery too!',
-      avatar: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=150&auto=format&fit=crop&q=80'
-    },
-    {
-      id: 3,
-      name: 'Anjali Patel',
-      rating: 4,
-      text: 'Love this dress! Perfect for summer parties. The quality exceeded my expectations. Will definitely buy again.',
-      avatar: 'https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=150&auto=format&fit=crop&q=80'
-    },
-    {
-      id: 4,
-      name: 'Vikram Singh',
-      rating: 3,
-      text: 'Good quality fabric, but the size was slightly smaller than expected. Would recommend ordering one size up.',
-      avatar: 'https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=150&auto=format&fit=crop&q=80'
-    },
-    {
-      id: 5,
-      name: 'Neha Gupta',
-      rating: 4,
-      text: 'Beautiful design and perfect for office wear. The material is breathable and doesn\'t wrinkle easily.',
-      avatar: 'https://images.unsplash.com/photo-1544005313-94ddf0286df2?w=150&auto=format&fit=crop&q=80'
-    },
-    {
-      id: 6,
-      name: 'Raj Malhotra',
-      rating: 5,
-      text: 'Perfect fit and amazing quality! I\'ve ordered 3 more dresses from this store. Highly recommended!',
-      avatar: 'https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?w=150&auto=format&fit=crop&q=80'
-    }
-  ];
-
   useEffect(() => {
-    const fetchAllData = async () => {
-      try {
-        setLoading(true);
-        
-        // ✅ URL से product ID get करें
-        const productId = window.location.pathname.split('/').pop();
-        
-        // ✅ API से actual product data fetch करें
-        const response = await api.getProductDetails(productId);
-        const productData = response.data;
-        
-        setProduct(productData);
-        
-        // ✅ Product के images set करें
-        if (productData.images && productData.images.length > 0) {
-          setMainImage(productData.images[0].large);
-        }
-        
-        // ✅ Reviews set करें
-        if (productData.reviews && productData.reviews.length > 0) {
-          setReviews(productData.reviews);
-        } else {
-          // Fallback to initial reviews
-          setReviews(initialReviews);
-        }
-        
-        // ✅ Fetch wishlist items
-        const wishlistResponse = await api.getWishlistItems();
-        setWishlistItems(wishlistResponse.data);
-        
-        // ✅ Check if current product is in wishlist
-        const isInWishlist = wishlistResponse.data.some(item => item.name === productData.name);
-        setWishlisted(isInWishlist);
-        
-        // ✅ Fetch cart items
-        const cartResponse = await api.getCartItems();
-        setCartItems(cartResponse.data);
-        
-      } catch (error) {
-        console.error('Error fetching data:', error);
-      } finally {
-        setLoading(false);
+  const fetchAllData = async () => {
+    try {
+      setLoading(true);
+      
+      // ✅ URL से product ID get करें
+      const productId = window.location.pathname.split('/').pop();
+      
+      // ✅ API से actual product data fetch करें
+      const response = await api.getProductDetails(productId);
+      const productData = response.data;
+      
+      setProduct(productData);
+      
+      // ✅ Product के images set करें
+      if (productData.images && productData.images.length > 0) {
+        setMainImage(productData.images[0].large);
       }
-    };
+      
+      // ✅ सबसे पहले productDetails से reviews लें
+      if (productData.reviews && productData.reviews.length > 0) {
+        // Format reviews for UI WITHOUT date
+        const formattedReviews = productData.reviews.map(review => ({
+          id: review.id,
+          name: review.name,
+          rating: review.rating,
+          text: review.text || review.comment,
+          avatar: review.avatar
+          // NO date field
+        }));
+        setReviews(formattedReviews);
+      } else {
+        // If no reviews in productDetails, check separate reviews endpoint
+        try {
+          const reviewsResponse = await api.getProductReviews(productId);
+          const dbReviews = reviewsResponse.data;
+          
+          if (dbReviews && dbReviews.length > 0) {
+            // Remove date from existing reviews too
+            const formattedReviews = dbReviews.map(review => ({
+              id: review.id,
+              name: review.name,
+              rating: review.rating,
+              text: review.text || review.comment,
+              avatar: review.avatar
+            }));
+            setReviews(formattedReviews);
+          }
+        } catch (error) {
+          console.log('No separate reviews found');
+        }
+      }
+      
+      // ✅ Rest of the code remains same...
+      // ✅ Fetch wishlist items
+      const wishlistResponse = await api.getWishlistItems();
+      setWishlistItems(wishlistResponse.data);
+      
+      // ✅ Check if current product is in wishlist
+      const isInWishlist = wishlistResponse.data.some(item => item.name === productData.name);
+      setWishlisted(isInWishlist);
+      
+      // ✅ Fetch cart items
+      const cartResponse = await api.getCartItems();
+      setCartItems(cartResponse.data);
+      
+    } catch (error) {
+      console.error('Error fetching data:', error);
+    } finally {
+      setLoading(false);
+    }
+  };
 
-    fetchAllData();
-  }, []);
+  fetchAllData();
+}, []);
 
   // Auto slide reviews
   useEffect(() => {
@@ -148,6 +128,19 @@ const InnerProduct = () => {
     setSelectedSize(size);
   };
 
+  // Helper function to get random avatar
+  const getRandomAvatar = () => {
+    const avatarIds = [
+      '1524504388940-b1c1722653e1',
+      '1507003211169-0a1dd7228f2d',
+      '1438761681033-6461ffad8d80',
+      '1500648767791-00dcc994a43e',
+      '1544005313-94ddf0286df2',
+      '1506794778202-cad84cf45f1d'
+    ];
+    return `https://images.unsplash.com/photo-${avatarIds[Math.floor(Math.random() * avatarIds.length)]}?w=150&auto=format&fit=crop&q=80`;
+  };
+
   // Helper function to get random color
   const getRandomColor = () => {
     const colors = ['Red', 'Blue', 'Green', 'Black', 'White', 'Orange', 'Pink', 'Purple', 'Yellow'];
@@ -158,13 +151,13 @@ const InnerProduct = () => {
   const addToWishlist = async (e) => {
     e.preventDefault();
     e.stopPropagation();
-    
+
     if (!product) return;
-    
+
     try {
       // Check if already in wishlist
       const isAlreadyInWishlist = wishlistItems.some(item => item.name === product.name);
-      
+
       if (!isAlreadyInWishlist) {
         // Prepare wishlist item data
         const wishlistItem = {
@@ -177,26 +170,22 @@ const InnerProduct = () => {
           quantity: 1,
           inStock: true
         };
-        
-        console.log('Adding to wishlist from product page:', wishlistItem);
-        
+
         // Add to wishlist via API
         const response = await api.addToWishlist(wishlistItem);
-        console.log('API Response:', response);
-        
+
         // Update local state
         setWishlistItems(prev => [...prev, response.data]);
         setWishlisted(true);
-        
+
         // Show success message
         alert(`✓ "${product.name}" has been added to your wishlist!`);
-        
+
       } else {
         alert(`"${product.name}" is already in your wishlist!`);
       }
     } catch (error) {
       console.error('Error adding to wishlist:', error);
-      console.error('Error details:', error.response?.data || error.message);
       alert(`Failed to add "${product.name}" to wishlist. Please try again.`);
     }
   };
@@ -205,21 +194,21 @@ const InnerProduct = () => {
   const removeFromWishlist = async (e) => {
     e.preventDefault();
     e.stopPropagation();
-    
+
     if (!product) return;
-    
+
     try {
       // Find the wishlist item by name
       const wishlistItem = wishlistItems.find(item => item.name === product.name);
-      
+
       if (wishlistItem) {
         // Remove from wishlist via API
         await api.deleteWishlistItem(wishlistItem.id);
-        
+
         // Update local state
         setWishlistItems(prev => prev.filter(item => item.id !== wishlistItem.id));
         setWishlisted(false);
-        
+
         // Show success message
         alert(`✓ "${product.name}" has been removed from your wishlist!`);
       }
@@ -242,13 +231,13 @@ const InnerProduct = () => {
   const addToCart = async (e) => {
     e.preventDefault();
     e.stopPropagation();
-    
+
     if (!product) return;
-    
+
     try {
       // Check if already in cart
       const isAlreadyInCart = cartItems.some(item => item.name === product.name);
-      
+
       if (!isAlreadyInCart) {
         // Prepare cart item data
         const cartItem = {
@@ -260,25 +249,21 @@ const InnerProduct = () => {
           quantity: quantity,
           inStock: true
         };
-        
-        console.log('Adding to cart from product page:', cartItem);
-        
+
         // Add to cart via API
         const response = await api.addToCart(cartItem);
-        console.log('API Response:', response);
-        
+
         // Update local state
         setCartItems(prev => [...prev, response.data]);
-        
+
         // Show success message
         alert(`✓ "${product.name}" (Qty: ${quantity}) has been added to your cart!`);
-        
+
       } else {
         alert(`"${product.name}" is already in your cart!`);
       }
     } catch (error) {
       console.error('Error adding to cart:', error);
-      console.error('Error details:', error.response?.data || error.message);
       alert(`Failed to add "${product.name}" to cart. Please try again.`);
     }
   };
@@ -298,7 +283,7 @@ const InnerProduct = () => {
   // RAZORPAY PAYMENT HANDLER FOR BUY NOW BUTTON
   const handleBuyNow = () => {
     if (!product) return;
-    
+
     if (!window.Razorpay) {
       alert("Razorpay SDK not loaded. Please refresh the page.");
       return;
@@ -307,8 +292,8 @@ const InnerProduct = () => {
     const totalPrice = product.price * quantity;
 
     const options = {
-      key: "rzp_test_1DP5mmOlF5G5ag", // Replace with your Razorpay key
-      amount: totalPrice * 100, // Amount in paise
+      key: "rzp_test_1DP5mmOlF5G5ag",
+      amount: totalPrice * 100,
       currency: "INR",
       name: "Shree Laxmi Mall",
       description: `Product: ${product.name} - Size: ${selectedSize}`,
@@ -357,46 +342,69 @@ const InnerProduct = () => {
     }
   };
 
-  const handleReviewSubmit = (e) => {
+  // UPDATED: Save review to productDetails array (without date)
+  const handleReviewSubmit = async (e) => {
     e.preventDefault();
     if (!reviewForm.firstName || !reviewForm.lastName || !reviewForm.comment || reviewForm.rating === 0) {
       alert('Please fill in all fields and select a rating.');
       return;
     }
 
-    // Generate random avatar from Unsplash
-    const avatarIds = [
-      '1524504388940-b1c1722653e1',
-      '1507003211169-0a1dd7228f2d',
-      '1438761681033-6461ffad8d80',
-      '1500648767791-00dcc994a43e',
-      '1544005313-94ddf0286df2',
-      '1506794778202-cad84cf45f1d'
-    ];
-    const randomAvatar = `https://images.unsplash.com/photo-${avatarIds[Math.floor(Math.random() * avatarIds.length)]}?w=150&auto=format&fit=crop&q=80`;
+    try {
+      // Prepare review data WITHOUT date
+      const reviewData = {
+        productId: product.id,
+        name: `${reviewForm.firstName} ${reviewForm.lastName}`,
+        rating: reviewForm.rating,
+        comment: reviewForm.comment,
+        avatar: getRandomAvatar()
+        // NO date field
+      };
 
-    const newReview = {
-      id: reviews.length + 1,
-      name: `${reviewForm.firstName} ${reviewForm.lastName}`,
-      rating: reviewForm.rating,
-      text: reviewForm.comment,
-      avatar: randomAvatar
-    };
+      // Save to database
+      const response = await api.addProductReview(reviewData);
+      const newReview = response.data;
 
-    // Add new review to the beginning
-    const updatedReviews = [newReview, ...reviews];
-    setReviews(updatedReviews);
+      // Format for UI WITHOUT date
+      const formattedReview = {
+        id: newReview.id,
+        name: newReview.name,
+        rating: newReview.rating,
+        text: newReview.comment || newReview.text,
+        avatar: newReview.avatar
+        // NO date field
+      };
 
-    // Reset form
-    setReviewForm({
-      firstName: '',
-      lastName: '',
-      rating: 0,
-      comment: ''
-    });
-    setUserRating(0);
+      // Add new review to the beginning
+      setReviews(prev => [formattedReview, ...prev]);
 
-    alert('Review submitted successfully!');
+      // Update product rating
+      setProduct(prev => {
+        const allReviews = [...(prev.reviews || []), formattedReview];
+        const newRating = allReviews.reduce((sum, r) => sum + r.rating, 0) / allReviews.length;
+
+        return {
+          ...prev,
+          rating: parseFloat(newRating.toFixed(1)),
+          reviews: allReviews
+        };
+      });
+
+      // Reset form
+      setReviewForm({
+        firstName: '',
+        lastName: '',
+        rating: 0,
+        comment: ''
+      });
+      setUserRating(0);
+
+      alert('Review submitted successfully! It has been saved to the database.');
+
+    } catch (error) {
+      console.error('Error submitting review:', error);
+      alert('Failed to submit review. Please try again.');
+    }
   };
 
   const renderStars = (rating, interactive = false) => {
@@ -478,7 +486,7 @@ const InnerProduct = () => {
   }
 
   const totalPrice = product.price * quantity;
-  const totalReviews = 487162 + reviews.length - initialReviews.length;
+  const totalReviews = reviews.length;
 
   return (
     <>
@@ -514,8 +522,8 @@ const InnerProduct = () => {
                     justifyContent: 'center',
                     cursor: 'pointer',
                     transition: 'all 0.3s',
-                    boxShadow: wishlisted 
-                      ? '0 0 15px rgba(255, 126, 0, 0.4)' 
+                    boxShadow: wishlisted
+                      ? '0 0 15px rgba(255, 126, 0, 0.4)'
                       : '0 3px 10px rgba(0, 0, 0, 0.1)',
                     zIndex: 10,
                     padding: 0
@@ -528,14 +536,14 @@ const InnerProduct = () => {
                   onMouseLeave={(e) => {
                     e.target.style.transform = 'scale(1)';
                     e.target.style.borderColor = wishlisted ? '#FF7E00' : 'rgba(0,0,0,0.1)';
-                    e.target.style.boxShadow = wishlisted 
-                      ? '0 0 15px rgba(255, 126, 0, 0.4)' 
+                    e.target.style.boxShadow = wishlisted
+                      ? '0 0 15px rgba(255, 126, 0, 0.4)'
                       : '0 3px 10px rgba(0, 0, 0, 0.1)';
                   }}
                   title={wishlisted ? 'Remove from Wishlist' : 'Add to Wishlist'}
                 >
-                  <FaHeart 
-                    size={22} 
+                  <FaHeart
+                    size={22}
                     color={wishlisted ? '#FF7E00' : '#333'}
                     style={{ transition: 'color 0.3s' }}
                   />
@@ -587,6 +595,9 @@ const InnerProduct = () => {
                   </div>
                   <span className="rating-text" style={{ color: '#666', fontSize: '16px', marginLeft: '5px' }}>
                     ({product.rating})
+                  </span>
+                  <span className="reviews-count" style={{ color: '#666', fontSize: '16px' }}>
+                    • {totalReviews} Reviews
                   </span>
                 </div>
 
@@ -711,8 +722,6 @@ const InnerProduct = () => {
                     Add To Cart
                   </button>
                 </div>
-
-               
               </div>
             </Col>
           </Row>
@@ -802,7 +811,7 @@ const InnerProduct = () => {
                     {renderStars(product.rating)}
                   </div>
                   <span className="reviews-count" style={{ color: '#666', fontSize: '18px' }}>
-                    ({product.rating}) • {totalReviews.toLocaleString()} Reviews
+                    ({product.rating}) • {totalReviews} Reviews
                   </span>
                 </div>
 
@@ -817,6 +826,7 @@ const InnerProduct = () => {
                       position: 'relative',
                       minHeight: '300px'
                     }}>
+                      
                       {getCurrentReviews().map(review => (
                         <div key={review.id} className="review-card" style={{
                           background: '#f8f9fa',
@@ -847,6 +857,7 @@ const InnerProduct = () => {
                               <div className="review-rating" style={{ color: '#FFB800', fontSize: '16px', marginTop: '5px' }}>
                                 {renderReviewStars(review.rating)}
                               </div>
+                              {/* DATE REMOVED FROM HERE */}
                             </div>
                           </div>
                           <p className="review-text" style={{ color: '#666', lineHeight: '1.8', flexGrow: 1 }}>
@@ -918,7 +929,7 @@ const InnerProduct = () => {
                 }}>
                   <Row className="d-flex justify-content-center align-items-center" id="reviewForm">
                     <Col lg={6} md={6} xs={12}>
-                      <div className="add-review-form" style={{marginTop: '0px'}}>
+                      <div className="add-review-form" style={{ marginTop: '0px' }}>
                         <h3 className="form-title" style={{
                           color: '#2D2D2D',
                           fontSize: '24px',
@@ -1052,7 +1063,6 @@ const InnerProduct = () => {
                             >
                               <FaPaperPlane /> Post Your Comment
                             </button>
-
 
                             {/* BOTTOM BUTTONS (SAME WIDTH AS TOP) */}
                             <div
