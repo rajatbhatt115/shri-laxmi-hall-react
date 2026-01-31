@@ -2,9 +2,10 @@ import { useState, useEffect } from 'react'
 import { Container, Row, Col, Form, Button } from 'react-bootstrap'
 import HeroSection from '../components/HeroSection'
 import api from '../api'
-import { FaUser, FaEnvelope } from 'react-icons/fa'
+import { useParams } from 'react-router-dom'
 
 const InnerBlog = () => {
+  const { id } = useParams()
   const [blogData, setBlogData] = useState(null)
   const [loading, setLoading] = useState(true)
   const [commentForm, setCommentForm] = useState({
@@ -19,18 +20,32 @@ const InnerBlog = () => {
   useEffect(() => {
     const fetchBlogData = async () => {
       try {
-        const response = await api.getInnerBlog(1)
-        setBlogData(response.data)
-        setComments(response.data.comments || [])
+        setLoading(true)
+        console.log('Fetching blog ID:', id)
+        
+        // API से blog data fetch करें
+        const response = await api.getInnerBlog(id)
+        console.log('API Response:', response.data)
+        
+        if (response.data) {
+          setBlogData(response.data)
+          setComments(response.data.comments || [])
+        } else {
+          console.error('No data received from API')
+          setBlogData(null)
+        }
       } catch (error) {
         console.error('Error fetching blog data:', error)
+        setBlogData(null)
       } finally {
         setLoading(false)
       }
     }
 
-    fetchBlogData()
-  }, [])
+    if (id) {
+      fetchBlogData()
+    }
+  }, [id])
 
   const handleCommentChange = (e) => {
     setCommentForm({
@@ -52,10 +67,8 @@ const InnerBlog = () => {
 
     setComments([newComment, ...comments])
 
-    // Show success message
     alert('Your comment has been posted successfully!')
 
-    // Reset form
     setCommentForm({
       firstName: '',
       lastName: '',
@@ -66,11 +79,41 @@ const InnerBlog = () => {
   }
 
   if (loading) {
-    return <div>Loading blog...</div>
+    return (
+      <div style={{ 
+        textAlign: 'center', 
+        padding: '50px', 
+        color: '#FF7E00',
+        minHeight: '50vh',
+        display: 'flex',
+        flexDirection: 'column',
+        justifyContent: 'center',
+        alignItems: 'center'
+      }}>
+        <div className="spinner-border text-warning" role="status" style={{ width: '3rem', height: '3rem' }}>
+          <span className="visually-hidden">Loading...</span>
+        </div>
+        <p style={{ marginTop: '20px' }}>Loading blog post...</p>
+      </div>
+    )
   }
 
   if (!blogData) {
-    return <div>Blog not found</div>
+    return (
+      <div style={{ 
+        textAlign: 'center', 
+        padding: '50px', 
+        color: '#FF7E00',
+        minHeight: '50vh',
+        display: 'flex',
+        flexDirection: 'column',
+        justifyContent: 'center',
+        alignItems: 'center'
+      }}>
+        <h3>Blog Post Not Found</h3>
+        <p>The blog post you're looking for doesn't exist.</p>
+      </div>
+    )
   }
 
   return (
@@ -86,7 +129,7 @@ const InnerBlog = () => {
               <div
                 className="blog-post-image"
                 style={{
-                  backgroundImage: 'url(https://images.unsplash.com/photo-1487017159836-4e23ece2e4cf?q=80&w=2071)',
+                  backgroundImage: `url(${blogData.image || 'https://images.unsplash.com/photo-1487017159836-4e23ece2e4cf?q=80&w=2071'})`,
                   backgroundSize: 'cover',
                   backgroundPosition: 'center',
                   height: '400px',
@@ -108,7 +151,10 @@ const InnerBlog = () => {
                     style={{
                       backgroundImage: `url(${blogData.authorImage})`,
                       backgroundSize: 'cover',
-                      backgroundPosition: 'center'
+                      backgroundPosition: 'center',
+                      width: '50px',
+                      height: '50px',
+                      borderRadius: '50%'
                     }}
                   ></div>
                   <div className="author-info">
@@ -215,7 +261,13 @@ const InnerBlog = () => {
                       <div className="comment-header">
                         <div
                           className="comment-avatar"
-                          style={{ backgroundImage: `url(${comment.avatar})` }}
+                          style={{ 
+                            backgroundImage: `url(${comment.avatar})`,
+                            width: '50px',
+                            height: '50px',
+                            borderRadius: '50%',
+                            backgroundSize: 'cover'
+                          }}
                         ></div>
                         <div className="comment-author">
                           <h5>{comment.name}</h5>
@@ -234,7 +286,7 @@ const InnerBlog = () => {
           </Col>
         </Row>
       </Container>
-    </section >
+    </section>
     </>
   )
 }

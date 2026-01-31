@@ -2011,6 +2011,7 @@ textarea.form-control {
 .rating-value {
     font-weight: 600;
     margin-right: 5px;
+    margin-top: 10px;
 }
 
 .stars {
@@ -2320,7 +2321,7 @@ textarea.form-control {
     display: flex;
     align-items: center;
     gap: 10px;
-    margin-bottom: 25px;
+    /* margin-bottom: 25px; */
 }
 
 .stars {
@@ -2336,7 +2337,10 @@ textarea.form-control {
     color: #666;
     font-size: 16px;
     margin-left: 5px;
+    margin-top: 10px;
 }
+
+
 
 /* Size Selection */
 .size-section {
@@ -3411,3 +3415,5 @@ textarea.form-control {
 {
     color: #FF7E00;
 }
+
+

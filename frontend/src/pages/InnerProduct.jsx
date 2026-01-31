@@ -86,26 +86,46 @@ const InnerProduct = () => {
     }
   ];
 
-  useEffect(() => {
-    const fetchProduct = async () => {
-      try {
-        // Using mock data for now
-        setProduct(mockProduct);
-        setMainImage('/img/img_lg1.png');
-        setReviews(initialReviews);
-      } catch (error) {
-        console.error('Error fetching product:', error);
-        // Fallback to mock data
-        setProduct(mockProduct);
-        setMainImage('/img/img_lg1.png');
-        setReviews(initialReviews);
-      } finally {
-        setLoading(false);
+  // इसके साथ replace करें:
+useEffect(() => {
+  const fetchProduct = async () => {
+    try {
+      setLoading(true);
+      // ✅ URL से product ID get करें
+      const productId = window.location.pathname.split('/').pop();
+      
+      // ✅ API से actual product data fetch करें
+      const response = await api.getProductDetails(productId);
+      const productData = response.data;
+      
+      setProduct(productData);
+      
+      // ✅ Product के images set करें
+      if (productData.images && productData.images.length > 0) {
+        setMainImage(productData.images[0].large);
       }
-    };
+      
+      // ✅ Reviews set करें (यदि API में हैं)
+      if (productData.reviews && productData.reviews.length > 0) {
+        setReviews(productData.reviews);
+      } else {
+        // Fallback to initial reviews if no reviews in API
+        setReviews(initialReviews);
+      }
+      
+    } catch (error) {
+      console.error('Error fetching product:', error);
+      // Fallback to mock data if API fails
+      setProduct(mockProduct);
+      setMainImage('/img/img_lg1.png');
+      setReviews(initialReviews);
+    } finally {
+      setLoading(false);
+    }
+  };
 
-    fetchProduct();
-  }, []);
+  fetchProduct();
+}, []); // ✅ Empty dependency array means run once on mount
 
   // Auto slide reviews
   useEffect(() => {

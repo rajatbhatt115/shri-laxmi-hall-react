@@ -36,6 +36,7 @@ const api = {
 
   // ==================== INNER BLOG PAGE ====================
   getInnerBlog: (id) => axios.get(`${API_BASE_URL}/innerBlog/${id}`),
+  
 
   // ==================== SHOP PAGE ====================
   getProducts: () => axios.get(`${API_BASE_URL}/products`),

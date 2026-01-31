@@ -87,7 +87,13 @@ const NavigationBar = () => {
               <Nav.Link as={NavLink} to="/shop" className="nav-item" onClick={handleNavClick}>
                 Shop
               </Nav.Link>
-              <Nav.Link as={NavLink} to="/blog" className="nav-item" onClick={handleNavClick}>
+              <Nav.Link
+                as={NavLink}
+                to="/blog"
+                end  // ✅ यह सिर्फ exact match पर active होगा
+                className="nav-item"
+                onClick={handleNavClick}
+              >
                 Blog
               </Nav.Link>
               <Nav.Link as={NavLink} to="/contact" className="nav-item" onClick={handleNavClick}>
