@@ -38,8 +38,8 @@ const api = {
   getInnerBlog: (id) => axios.get(`${API_BASE_URL}/innerBlog/${id}`),
 
   // ==================== BLOG COMMENTS ====================
- addBlogComment: (blogId, commentData) => 
-  axios.post(`${API_BASE_URL}/innerBlog/${blogId}/comments`, commentData),
+  addBlogComment: (blogId, commentData) =>
+    axios.post(`${API_BASE_URL}/innerBlog/${blogId}/comments`, commentData),
 
 
   // ==================== SHOP PAGE ====================
@@ -86,7 +86,16 @@ const api = {
     axios.get(`${API_BASE_URL}/productReviews?productId=${productId}`),
 
   addProductReview: (data) =>
-    axios.post(`${API_BASE_URL}/productReviews`, data)
+    axios.post(`${API_BASE_URL}/productReviews`, data),
+
+  // ==================== USERS ====================
+  getUsers: () => axios.get(`${API_BASE_URL}/users`),
+
+  registerUser: (userData) =>
+    axios.post(`${API_BASE_URL}/users`, userData),
+
+  loginUser: (credentials) =>
+    axios.post(`${API_BASE_URL}/users/login`, credentials),
 
 };
 

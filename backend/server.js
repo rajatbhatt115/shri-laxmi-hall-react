@@ -312,6 +312,52 @@ server.get('/api/productReviews', (req, res) => {
   res.json(reviews);
 });
 
+// 10. Users endpoints
+server.get('/api/users', (req, res) => {
+  const db = router.db;
+  const users = db.get('users').value();
+  res.json(users);
+});
+
+server.post('/api/users', (req, res) => {
+  const db = router.db;
+  const newUser = req.body;
+  
+  // Generate ID if not provided
+  if (!newUser.id) {
+    const users = db.get('users').value();
+    newUser.id = users.length > 0 
+      ? Math.max(...users.map(user => user.id)) + 1 
+      : 1;
+  }
+  
+  // Add created date if not provided
+  if (!newUser.createdAt) {
+    newUser.createdAt = new Date().toISOString();
+  }
+  
+  // Add to users
+  db.get('users').push(newUser).write();
+  res.status(201).json(newUser);
+});
+
+// Check user credentials
+server.post('/api/users/login', (req, res) => {
+  const { email, password } = req.body;
+  const db = router.db;
+  
+  const users = db.get('users').value();
+  const user = users.find(u => u.email === email && u.password === password);
+  
+  if (user) {
+    // Don't send password back
+    const { password, ...userWithoutPassword } = user;
+    res.json({ success: true, user: userWithoutPassword });
+  } else {
+    res.status(401).json({ success: false, message: 'Invalid credentials' });
+  }
+});
+
 // Use the router for all other endpoints
 server.use('/api', router)
 

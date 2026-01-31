@@ -2073,5 +2073,28 @@
         }
       ]
     }
+  ],
+  "users": [
+    {
+      "id": 1,
+      "email": "test@example.com",
+      "password": "password123",
+      "name": "Test User",
+      "createdAt": "2024-01-01T00:00:00.000Z"
+    },
+    {
+      "id": 2,
+      "email": "user@example.com",
+      "password": "user123",
+      "name": "Demo User",
+      "createdAt": "2024-01-15T00:00:00.000Z"
+    },
+    {
+      "id": 1769863533970,
+      "email": "lorem@gmail.com",
+      "password": "loremipsum123",
+      "name": "lorem",
+      "createdAt": "2026-01-31T12:45:33.970Z"
+    }
   ]
 }
