@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react'
-import { Container, Button } from 'react-bootstrap'
+import { Container } from 'react-bootstrap'
 import HeroSection from '../components/HeroSection'
 import api from '../api'
 import { FaTrashAlt, FaShoppingCart, FaMinus, FaPlus, FaCheckCircle, FaTimesCircle, FaHeartBroken, FaHeart } from 'react-icons/fa'
@@ -71,11 +71,40 @@ const Wishlist = () => {
     closeDeleteModal()
   }
 
-  const moveToCart = (item) => {
-    if (!item.inStock) return
-    alert(`${item.name} (Qty: ${item.quantity}) has been moved to your cart!`)
-    setWishlistItems(prevItems => prevItems.filter(i => i.id !== item.id))
-  }
+  const moveToCart = async (item) => {
+    if (!item.inStock) return;
+    
+    try {
+      // Cart में item add करें
+      const cartItemData = {
+        name: item.name,
+        image: item.image,
+        color: item.color,
+        size: item.size,
+        price: item.unitPrice,
+        quantity: item.quantity,
+        inStock: item.inStock
+      };
+      
+      await api.addToCart(cartItemData);
+      
+      // Wishlist से item remove करें
+      await api.deleteWishlistItem(item.id);
+      
+      // Local state update करें
+      setWishlistItems(prevItems => prevItems.filter(i => i.id !== item.id));
+      
+      // Cart update event dispatch करें
+      window.dispatchEvent(new CustomEvent('cartUpdated'));
+      
+      // Success message
+      alert(`${item.name} (Qty: ${item.quantity}) has been moved to your cart!`);
+      
+    } catch (error) {
+      console.error('Error moving item to cart:', error);
+      alert('Failed to move item to cart. Please try again.');
+    }
+  };
 
   useEffect(() => {
     const wishlistLinks = document.querySelectorAll('a[href*="wishlist"], a[href="/wishlist"]');

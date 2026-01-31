@@ -13,8 +13,43 @@ const Cart = () => {
   const [showStatusModal, setShowStatusModal] = useState(false)
 
   useEffect(() => {
-    fetchCartItems()
-  }, [])
+  fetchCartItems();
+  
+  // Event listener add करें जब wishlist से item cart में move हो
+  const handleCartUpdate = () => {
+    fetchCartItems();
+  };
+  
+  window.addEventListener('cartUpdated', handleCartUpdate);
+  
+  return () => {
+    window.removeEventListener('cartUpdated', handleCartUpdate);
+  };
+}, []);
+
+// Cart लिंक को highlight करने के लिए useEffect
+useEffect(() => {
+  const cartLinks = document.querySelectorAll('a[href*="cart"], a[href="/cart"]');
+  
+  cartLinks.forEach(link => {
+    link.style.color = '#FF7E00';
+    
+    const icon = link.querySelector('i, svg');
+    if (icon) {
+      icon.style.color = '#FF7E00';
+    }
+  });
+
+  return () => {
+    cartLinks.forEach(link => {
+      link.style.color = '';
+      const icon = link.querySelector('i, svg');
+      if (icon) {
+        icon.style.color = '';
+      }
+    });
+  };
+}, []);
 
   const fetchCartItems = async () => {
     try {
