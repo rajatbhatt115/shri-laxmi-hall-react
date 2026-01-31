@@ -654,16 +654,6 @@
       "inStock": true
     },
     {
-      "id": 2,
-      "name": "Dress Name",
-      "image": "https://images.unsplash.com/photo-1539008835657-9e8e9680c956?w=500",
-      "color": "Orange",
-      "size": "XS",
-      "price": 4000,
-      "quantity": 2,
-      "inStock": true
-    },
-    {
       "id": 3,
       "name": "Jewellery Name",
       "image": "https://images.unsplash.com/photo-1611591437281-460bfbe1220a?w=500",
@@ -682,16 +672,6 @@
       "price": 4000,
       "quantity": 1,
       "inStock": false
-    },
-    {
-      "id": 5,
-      "name": "Dress Name",
-      "image": "https://images.unsplash.com/photo-1724139139873-57572c120322?w=500",
-      "color": "Orange",
-      "size": "XS",
-      "price": 4000,
-      "quantity": 2,
-      "inStock": true
     }
   ],
   "wishlistItems": [
@@ -703,16 +683,6 @@
       "size": "XS",
       "unitPrice": 4000,
       "quantity": 1,
-      "inStock": true
-    },
-    {
-      "id": 2,
-      "name": "Dress Name",
-      "image": "https://images.unsplash.com/photo-1617137968427-85924c800a22?w=400",
-      "color": "Orange",
-      "size": "XS",
-      "unitPrice": 4000,
-      "quantity": 2,
       "inStock": true
     },
     {
