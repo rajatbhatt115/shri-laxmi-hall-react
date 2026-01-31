@@ -80,7 +80,7 @@
     },
     {
       "id": 2,
-      "title": "Exclusive Winter Collection 2024",
+      "title": "Exclusive Winter Collection Latest Trends",
       "badge": "Trending",
       "bgColor": "#FFE8CC",
       "imageClass": "product-image2"
@@ -94,7 +94,7 @@
     },
     {
       "id": 4,
-      "title": "Summer Fashion Essentials",
+      "title": "Summer Fashion Essentials Latest Arrivals",
       "badge": "Hot",
       "bgColor": "#FFE8CC",
       "imageClass": "product-image4"
@@ -689,16 +689,6 @@
       "inStock": true
     },
     {
-      "id": 2,
-      "name": "Dress Name",
-      "image": "https://images.unsplash.com/photo-1539008835657-9e8e9680c956?w=500",
-      "color": "Orange",
-      "size": "XS",
-      "price": 4000,
-      "quantity": 2,
-      "inStock": true
-    },
-    {
       "id": 3,
       "name": "Jewellery Name",
       "image": "https://images.unsplash.com/photo-1611591437281-460bfbe1220a?w=500",
@@ -717,16 +707,6 @@
       "price": 4000,
       "quantity": 1,
       "inStock": false
-    },
-    {
-      "id": 5,
-      "name": "Dress Name",
-      "image": "https://images.unsplash.com/photo-1724139139873-57572c120322?w=500",
-      "color": "Orange",
-      "size": "XS",
-      "price": 4000,
-      "quantity": 2,
-      "inStock": true
     }
   ],
   "wishlistItems": [
@@ -738,16 +718,6 @@
       "size": "XS",
       "unitPrice": 4000,
       "quantity": 1,
-      "inStock": true
-    },
-    {
-      "id": 2,
-      "name": "Dress Name",
-      "image": "https://images.unsplash.com/photo-1617137968427-85924c800a22?w=400",
-      "color": "Orange",
-      "size": "XS",
-      "unitPrice": 4000,
-      "quantity": 2,
       "inStock": true
     },
     {
@@ -1616,6 +1586,265 @@
           "rating": 4,
           "text": "Worth the price for occasional formal wear! The suit is well-made and fits properly. The fabric quality is good for the price range. Perfect for weddings and formal events. Good value purchase.",
           "avatar": "https://i.pravatar.cc/150?img=6"
+        }
+      ]
+    },
+    {
+      "id": 2,
+      "name": "Floral Summer Dress",
+      "price": 2500,
+      "rating": 4.8,
+      "images": [
+        { "thumb": "/img/img_sm1.png", "large": "/img/img_lg1.png" },
+        { "thumb": "/img/img_sm2.png", "large": "/img/img_lg2.png" },
+        { "thumb": "/img/img_sm3.png", "large": "/img/img_lg3.png" }
+      ],
+      "sizes": ["S", "M", "L", "XL"],
+      "description": "Beautiful floral summer dress made with lightweight fabric, perfect for daily wear and outings.",
+      "reviews": [
+        {
+          "id": 1,
+          "name": "Neha Patel",
+          "rating": 5,
+          "text": "Very comfortable and stylish. Perfect for summers!",
+          "avatar": "https://images.unsplash.com/photo-1529626455594-4ff0802cfb7e"
+        }
+      ]
+    },
+
+    {
+      "id": 3,
+      "name": "Casual Party Wear",
+      "price": 2000,
+      "rating": 4.9,
+      "images": [
+        { "thumb": "/img/img_sm1.png", "large": "/img/img_lg1.png" },
+        { "thumb": "/img/img_sm2.png", "large": "/img/img_lg2.png" }
+      ],
+      "sizes": ["S", "M", "L"],
+      "description": "Trendy casual party wear with elegant finish and premium stitching.",
+      "reviews": [
+        {
+          "id": 1,
+          "name": "Anjali Mehta",
+          "rating": 5,
+          "text": "Looks amazing at parties. Loved the quality!",
+          "avatar": "https://images.unsplash.com/photo-1544005313-94ddf0286df2"
+        }
+      ]
+    },
+
+    {
+      "id": 4,
+      "name": "Designer Saree",
+      "price": 3500,
+      "rating": 4.9,
+      "images": [
+        { "thumb": "/img/img_sm1.png", "large": "/img/img_lg1.png" },
+        { "thumb": "/img/img_sm2.png", "large": "/img/img_lg2.png" }
+      ],
+      "sizes": ["Free Size"],
+      "description": "Elegant designer saree suitable for weddings and festive occasions.",
+      "reviews": [
+        {
+          "id": 1,
+          "name": "Kavita Joshi",
+          "rating": 5,
+          "text": "Very classy saree. Got many compliments.",
+          "avatar": "https://images.unsplash.com/photo-1535713875002-d1d0cf377fde"
+        }
+      ]
+    },
+
+    {
+      "id": 5,
+      "name": "Traditional Lehenga",
+      "price": 4500,
+      "rating": 4.8,
+      "images": [
+        { "thumb": "/img/img_sm1.png", "large": "/img/img_lg1.png" },
+        { "thumb": "/img/img_sm2.png", "large": "/img/img_lg2.png" }
+      ],
+      "sizes": ["S", "M", "L", "XL"],
+      "description": "Traditional lehenga with rich embroidery, ideal for festivals and weddings.",
+      "reviews": [
+        {
+          "id": 1,
+          "name": "Riya Shah",
+          "rating": 5,
+          "text": "Perfect festive outfit. Fabric quality is premium.",
+          "avatar": "https://images.unsplash.com/photo-1520813792240-56fc4a3765a7"
+        }
+      ]
+    },
+
+    {
+      "id": 6,
+      "name": "Modern Ethnic Wear",
+      "price": 2800,
+      "rating": 4.9,
+      "images": [
+        { "thumb": "/img/img_sm1.png", "large": "/img/img_lg1.png" },
+        { "thumb": "/img/img_sm2.png", "large": "/img/img_lg2.png" }
+      ],
+      "sizes": ["M", "L", "XL"],
+      "description": "Modern ethnic wear with a contemporary design and comfortable fit.",
+      "reviews": [
+        {
+          "id": 1,
+          "name": "Pooja Nair",
+          "rating": 4,
+          "text": "Stylish and comfortable for long wear.",
+          "avatar": "https://images.unsplash.com/photo-1527980965255-d3b416303d12"
+        }
+      ]
+    },
+     {
+      "id": 7,
+      "name": "Bridal Lehenga",
+      "price": 5500,
+      "rating": 5,
+      "images": [
+        {
+          "thumb": "/img/img_sm1.png",
+          "large": "/img/img_lg1.png"
+        },
+        {
+          "thumb": "/img/img_sm2.png",
+          "large": "/img/img_lg2.png"
+        },
+        {
+          "thumb": "/img/img_sm3.png",
+          "large": "/img/img_lg3.png"
+        }
+      ],
+      "sizes": [
+        "XS",
+        "S",
+        "M",
+        "L",
+        "XL",
+        "XXL"
+      ],
+      "description": "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged.",
+      "reviews": [
+        {
+          "id": 1,
+          "name": "Priya Sharma",
+          "rating": 4,
+          "text": "Excellent quality! The dress fits perfectly and the fabric is very comfortable. I've received so many compliments!",
+          "avatar": "https://images.unsplash.com/photo-1524504388940-b1c1722653e1?q=80&w=687&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+        },
+        {
+          "id": 2,
+          "name": "Rahul Verma",
+          "rating": 5,
+          "text": "Best purchase ever! The stitching is excellent and the color looks exactly like in the picture. Very fast delivery too!",
+          "avatar": "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=150&auto=format&fit=crop&q=80"
+        }
+      ]
+    },
+    {
+      "id": 8,
+      "name": "Office Formal Suit",
+      "price": 3200,
+      "rating": 4.7,
+      "images": [
+        { "thumb": "/img/img_sm1.png", "large": "/img/img_lg1.png" }
+      ],
+      "sizes": ["M", "L", "XL"],
+      "description": "Professional office wear suit with a sharp and modern look.",
+      "reviews": [
+        {
+          "id": 1,
+          "name": "Amit Kumar",
+          "rating": 4,
+          "text": "Good fitting and professional look.",
+          "avatar": "https://images.unsplash.com/photo-1500648767791-00dcc994a43e"
+        }
+      ]
+    },
+
+    {
+      "id": 9,
+      "name": "Silk Saree",
+      "price": 4200,
+      "rating": 4.9,
+      "images": [
+        { "thumb": "/img/img_sm1.png", "large": "/img/img_lg1.png" }
+      ],
+      "sizes": ["Free Size"],
+      "description": "Premium silk saree with traditional design and rich texture.",
+      "reviews": [
+        {
+          "id": 1,
+          "name": "Sunita Rao",
+          "rating": 5,
+          "text": "Pure silk feel. Worth the price.",
+          "avatar": "https://images.unsplash.com/photo-1494790108377-be9c29b29330"
+        }
+      ]
+    },
+
+    {
+      "id": 10,
+      "name": "Kids Casual Dress",
+      "price": 1500,
+      "rating": 4.5,
+      "images": [
+        { "thumb": "/img/img_sm1.png", "large": "/img/img_lg1.png" }
+      ],
+      "sizes": ["S", "M"],
+      "description": "Comfortable and cute casual dress for kids.",
+      "reviews": [
+        {
+          "id": 1,
+          "name": "Meena Patel",
+          "rating": 4,
+          "text": "My daughter loved it. Very soft fabric.",
+          "avatar": "https://images.unsplash.com/photo-1547425260-76bcadfb4f2c"
+        }
+      ]
+    },
+
+    {
+      "id": 11,
+      "name": "Gold Necklace Set",
+      "price": 8000,
+      "rating": 4.9,
+      "images": [
+        { "thumb": "/img/img_sm1.png", "large": "/img/img_lg1.png" }
+      ],
+      "sizes": ["One Size"],
+      "description": "Elegant gold necklace set suitable for weddings and special occasions.",
+      "reviews": [
+        {
+          "id": 1,
+          "name": "Rekha Malhotra",
+          "rating": 5,
+          "text": "Absolutely stunning jewellery set!",
+          "avatar": "https://images.unsplash.com/photo-1544005313-94ddf0286df2"
+        }
+      ]
+    },
+
+    {
+      "id": 12,
+      "name": "Men's Formal Suit",
+      "price": 3800,
+      "rating": 4.6,
+      "images": [
+        { "thumb": "/img/img_sm1.png", "large": "/img/img_lg1.png" }
+      ],
+      "sizes": ["M", "L", "XL"],
+      "description": "Men's formal suit with premium fabric and modern tailoring.",
+      "reviews": [
+        {
+          "id": 1,
+          "name": "Rohit Singh",
+          "rating": 4,
+          "text": "Good quality and proper fitting.",
+          "avatar": "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d"
         }
       ]
     }

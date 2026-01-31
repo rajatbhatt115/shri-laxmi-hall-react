@@ -185,6 +185,10 @@ useEffect(() => {
     alert(`Added to cart:\nProduct: ${cartItem.product}\nSize: ${cartItem.size}\nQuantity: ${cartItem.quantity}\nTotal: ₹${cartItem.total}`);
   };
 
+<<<<<<< HEAD
+=======
+  // RAZORPAY PAYMENT HANDLER FOR BUY NOW BUTTON
+>>>>>>> staging
   const handleBuyNow = () => {
     if (!window.Razorpay) {
       alert("Razorpay SDK not loaded. Please refresh the page.");
@@ -194,8 +198,13 @@ useEffect(() => {
     const totalPrice = product.price * quantity;
 
     const options = {
+<<<<<<< HEAD
       key: "rzp_test_1DP5mmOlF5G5ag",
       amount: totalPrice * 100,
+=======
+      key: "rzp_test_1DP5mmOlF5G5ag", // Replace with your Razorpay key
+      amount: totalPrice * 100, // Amount in paise
+>>>>>>> staging
       currency: "INR",
       name: "Fashion Store",
       description: `Product: ${product.name} - Size: ${selectedSize}`,
@@ -598,7 +607,11 @@ useEffect(() => {
                       cursor: 'pointer',
                       transition: 'all 0.3s'
                     }}
+<<<<<<< HEAD
                     onClick={handleBuyNow}
+=======
+                    onClick={handleBuyNow} // Updated to use Razorpay handler
+>>>>>>> staging
                   >
                     Buy Now
                   </button>

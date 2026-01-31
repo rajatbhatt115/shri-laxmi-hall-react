@@ -9,6 +9,8 @@ const Cart = () => {
   const [showDeleteModal, setShowDeleteModal] = useState(false)
   const [itemToDelete, setItemToDelete] = useState(null)
   const [loading, setLoading] = useState(true)
+  const [paymentStatus, setPaymentStatus] = useState(null)
+  const [showStatusModal, setShowStatusModal] = useState(false)
 
   useEffect(() => {
     fetchCartItems()
@@ -76,30 +78,103 @@ const Cart = () => {
     return { subtotal, shipping, tax, total }
   }
 
+  // RAZORPAY PAYMENT HANDLER FOR CHECKOUT BUTTON
+  const handleCheckout = () => {
+    if (cartItems.length === 0) {
+      alert("Your cart is empty. Please add items to cart before checkout.")
+      return
+    }
+
+    if (!window.Razorpay) {
+      alert("Razorpay SDK not loaded. Please refresh the page.")
+      return
+    }
+
+    const { total } = calculateTotals()
+    const productNames = cartItems.map(item => item.name).join(', ')
+
+    const options = {
+      key: "rzp_test_1DP5mmOlF5G5ag", // Replace with your Razorpay key
+      amount: Math.round(total * 100), // Amount in paise
+      currency: "INR",
+      name: "Shree Laxmi Mall",
+      description: `Cart Checkout - ${cartItems.length} items`,
+      image: "/img/logo.png",
+      handler: function (response) {
+        console.log("Payment Successful:", response)
+        setPaymentStatus('success')
+        setShowStatusModal(true)
+        
+        // Clear cart after successful payment
+        setTimeout(() => {
+          setCartItems([])
+        }, 1000)
+      },
+      prefill: {
+        name: "Test Customer",
+        email: "test@example.com",
+        contact: "9999999999"
+      },
+      notes: {
+        cart_items: cartItems.length.toString(),
+        items: productNames,
+        subtotal: `₹${subtotal.toFixed(2)}`,
+        shipping: `₹${shipping.toFixed(2)}`,
+        tax: `₹${tax.toFixed(2)}`,
+        total: `₹${total.toFixed(2)}`
+      },
+      theme: {
+        color: "#FF7E00"
+      },
+      modal: {
+        ondismiss: function () {
+          console.log("Payment modal closed by user")
+          setPaymentStatus('cancelled')
+          setShowStatusModal(true)
+        }
+      }
+    }
+
+    try {
+      const rzp = new window.Razorpay(options)
+      rzp.open()
+
+      rzp.on('payment.failed', function (response) {
+        console.error("Payment Failed:", response.error)
+        setPaymentStatus('failed')
+        setShowStatusModal(true)
+      })
+
+    } catch (error) {
+      console.error("Error initializing Razorpay:", error)
+      alert("Error initializing payment. Please try again.")
+    }
+  }
+
   const { subtotal, shipping, tax, total } = calculateTotals()
 
   useEffect(() => {
-    const cartLinks = document.querySelectorAll('a[href*="cart"], a[href="/cart"]');
+    const cartLinks = document.querySelectorAll('a[href*="cart"], a[href="/cart"]')
     
     cartLinks.forEach(link => {
-      link.style.color = '#FF7E00';
+      link.style.color = '#FF7E00'
       
-      const icon = link.querySelector('i, svg');
+      const icon = link.querySelector('i, svg')
       if (icon) {
-        icon.style.color = '#FF7E00';
+        icon.style.color = '#FF7E00'
       }
-    });
+    })
 
     return () => {
       cartLinks.forEach(link => {
-        link.style.color = '';
-        const icon = link.querySelector('i, svg');
+        link.style.color = ''
+        const icon = link.querySelector('i, svg')
         if (icon) {
-          icon.style.color = '';
+          icon.style.color = ''
         }
-      });
-    };
-  }, []);
+      })
+    }
+  }, [])
 
   if (loading) {
     return <div>Loading cart...</div>
@@ -432,29 +507,35 @@ const Cart = () => {
                 <Button 
                   style={{
                     width: '100%',
-                    background: '#FF7E00',
+                    background: cartItems.length === 0 ? '#ccc' : '#FF7E00',
                     color: 'white',
                     padding: '15px',
                     borderRadius: '30px',
                     border: 'none',
                     fontWeight: '600',
                     fontSize: '16px',
-                    cursor: 'pointer',
+                    cursor: cartItems.length === 0 ? 'not-allowed' : 'pointer',
                     transition: 'all 0.3s',
                     marginTop: '20px'
                   }}
                   onMouseEnter={(e) => {
-                    e.target.style.background = '#E38B50'
-                    e.target.style.transform = 'translateY(-2px)'
-                    e.target.style.boxShadow = '0 5px 20px rgba(255, 126, 0, 0.3)'
+                    if (cartItems.length > 0) {
+                      e.target.style.background = '#E38B50'
+                      e.target.style.transform = 'translateY(-2px)'
+                      e.target.style.boxShadow = '0 5px 20px rgba(255, 126, 0, 0.3)'
+                    }
                   }}
                   onMouseLeave={(e) => {
-                    e.target.style.background = '#FF7E00'
-                    e.target.style.transform = 'translateY(0)'
-                    e.target.style.boxShadow = 'none'
+                    if (cartItems.length > 0) {
+                      e.target.style.background = '#FF7E00'
+                      e.target.style.transform = 'translateY(0)'
+                      e.target.style.boxShadow = 'none'
+                    }
                   }}
+                  onClick={handleCheckout}
+                  disabled={cartItems.length === 0}
                 >
-                  Check Out
+                  {cartItems.length === 0 ? 'Cart Empty' : 'Check Out'}
                 </Button>
               </div>
             </Col>
@@ -544,6 +625,169 @@ const Cart = () => {
               >
                 Remove
               </button>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* Payment Status Modal */}
+      {showStatusModal && (
+        <div style={{
+          position: 'fixed',
+          top: 0,
+          left: 0,
+          width: '100%',
+          height: '100%',
+          background: 'rgba(0,0,0,0.7)',
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'center',
+          zIndex: 2000
+        }}>
+          <div style={{
+            background: 'white',
+            borderRadius: '20px',
+            width: '90%',
+            maxWidth: '400px',
+            padding: '30px',
+            textAlign: 'center',
+            boxShadow: '0 20px 60px rgba(0,0,0,0.3)'
+          }}>
+            {paymentStatus === 'success' ? (
+              <>
+                <div style={{
+                  width: '80px',
+                  height: '80px',
+                  background: '#4CAF50',
+                  borderRadius: '50%',
+                  margin: '0 auto 20px',
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  fontSize: '40px',
+                  color: 'white'
+                }}>
+                  ✓
+                </div>
+                <h3 style={{ color: '#2D2D2D', marginBottom: '10px' }}>Payment Successful!</h3>
+                <p style={{ color: '#666', marginBottom: '10px' }}>
+                  Your order for <strong>{cartItems.length} items</strong> has been placed successfully.
+                </p>
+                <p style={{ color: '#666', marginBottom: '25px', fontSize: '14px' }}>
+                  Order ID: ORD{Date.now().toString().slice(-6)}<br/>
+                  Total: ₹{total.toFixed(2)}
+                </p>
+              </>
+            ) : paymentStatus === 'failed' ? (
+              <>
+                <div style={{
+                  width: '80px',
+                  height: '80px',
+                  background: '#f44336',
+                  borderRadius: '50%',
+                  margin: '0 auto 20px',
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  fontSize: '40px',
+                  color: 'white'
+                }}>
+                  ✗
+                </div>
+                <h3 style={{ color: '#2D2D2D', marginBottom: '10px' }}>Payment Failed</h3>
+                <p style={{ color: '#666', marginBottom: '25px' }}>
+                  The payment could not be processed. Please try again.
+                </p>
+              </>
+            ) : (
+              <>
+                <div style={{
+                  width: '80px',
+                  height: '80px',
+                  background: '#FF7E00',
+                  borderRadius: '50%',
+                  margin: '0 auto 20px',
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  fontSize: '40px',
+                  color: 'white'
+                }}>
+                  !
+                </div>
+                <h3 style={{ color: '#2D2D2D', marginBottom: '10px' }}>Payment Cancelled</h3>
+                <p style={{ color: '#666', marginBottom: '25px' }}>
+                  Payment was cancelled. You can try again.
+                </p>
+              </>
+            )}
+
+            <div style={{ display: 'flex', gap: '15px', marginTop: '25px' }}>
+              {paymentStatus === 'success' ? (
+                <button
+                  onClick={() => {
+                    setShowStatusModal(false)
+                    setPaymentStatus(null)
+                  }}
+                  style={{
+                    padding: '12px 30px',
+                    background: '#FF7E00',
+                    color: 'white',
+                    border: 'none',
+                    borderRadius: '25px',
+                    fontWeight: '600',
+                    fontSize: '16px',
+                    cursor: 'pointer',
+                    transition: 'all 0.3s',
+                    width: '100%'
+                  }}
+                >
+                  Continue Shopping
+                </button>
+              ) : paymentStatus === 'failed' ? (
+                <button
+                  onClick={() => {
+                    setShowStatusModal(false)
+                    setPaymentStatus(null)
+                    setTimeout(() => handleCheckout(), 300)
+                  }}
+                  style={{
+                    padding: '12px 30px',
+                    background: '#f44336',
+                    color: 'white',
+                    border: 'none',
+                    borderRadius: '25px',
+                    fontWeight: '600',
+                    fontSize: '16px',
+                    cursor: 'pointer',
+                    transition: 'all 0.3s',
+                    width: '100%'
+                  }}
+                >
+                  Try Again
+                </button>
+              ) : (
+                <button
+                  onClick={() => {
+                    setShowStatusModal(false)
+                    setPaymentStatus(null)
+                  }}
+                  style={{
+                    padding: '12px 30px',
+                    background: '#FF7E00',
+                    color: 'white',
+                    border: 'none',
+                    borderRadius: '25px',
+                    fontWeight: '600',
+                    fontSize: '16px',
+                    cursor: 'pointer',
+                    transition: 'all 0.3s',
+                    width: '100%'
+                  }}
+                >
+                  OK
+                </button>
+              )}
             </div>
           </div>
         </div>

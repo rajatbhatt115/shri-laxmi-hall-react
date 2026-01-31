@@ -240,6 +240,7 @@ footer a {
     padding: 20px;
     margin-bottom: 30px;
     transition: transform 0.3s;
+    cursor: pointer;
 }
 
 .product-card:hover {
